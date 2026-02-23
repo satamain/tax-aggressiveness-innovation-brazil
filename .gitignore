@@ -1,8 +1,6 @@
 .venv
-.gitignore
 .DS_Store
-./DS_Store
-/.DS_Store
+**/.DS_Store
 /code/__pycache__
 __pycache__
 /__pycache__

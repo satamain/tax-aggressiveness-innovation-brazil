@@ -1,0 +1,1464 @@
+REGRESSOES FE POR SETOR (SPLIT SAMPLE)
+
+- periodo efetivo esperado: 2015-2024
+
+- min obs=150; min firms=20; min years=4
+
+- Filtro LAIR: ABTD=off, ETR=on
+
+- grouping=sim (cutoff=30); exclude_outros=sim
+
+
+=== DEPENDENTE: INOV_INC ===
+
+
+--- PROXY: ABTD ---
+
+
+SETOR: industria | N obs=1053 | N firms=108 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:               INOV_INC   R-squared:                        0.0915
+Estimator:                   PanelOLS   R-squared (Between):             -0.2949
+No. Observations:                 747   R-squared (Within):               0.1310
+Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1900
+Time:                        16:53:36   Log-likelihood                    1847.5
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      9.1649
+Entities:                          95   P-value                           0.0000
+Avg Obs:                       7.8632   Distribution:                   F(7,637)
+Min Obs:                       1.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             4.1100
+                                        P-value                           0.0002
+Time periods:                       9   Distribution:                   F(7,637)
+Avg Obs:                       83.000                                           
+Min Obs:                       75.000                                           
+Max Obs:                       90.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.0755     0.1267     0.5953     0.5518     -0.1734      0.3244
+ABTD_L1        0.0119     0.0209     0.5694     0.5693     -0.0292      0.0530
+SIZE_L1       -0.0007     0.0059    -0.1257     0.9000     -0.0122      0.0108
+ROA_L1         0.0357     0.0123     2.8887     0.0040      0.0114      0.0599
+LEV_L1        -0.0059     0.0120    -0.4957     0.6203     -0.0295      0.0176
+GR_L1          0.0083     0.0043     1.9360     0.0533     -0.0001      0.0168
+PPE_L1        -0.0599     0.0330    -1.8154     0.0699     -0.1247      0.0049
+INTA_L1        0.0041     0.0602     0.0677     0.9460     -0.1141      0.1222
+==============================================================================
+
+F-test for Poolability: 7.9366
+P-value: 0.0000
+Distribution: F(102,637)
+
+Included effects: Entity, Time
+[SKIP] setor industria: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, LEV_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: prestacao de servicos | N obs=484 | N firms=52 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:               INOV_INC   R-squared:                        0.0527
+Estimator:                   PanelOLS   R-squared (Between):             -0.1437
+No. Observations:                 350   R-squared (Within):               0.0646
+Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0544
+Time:                        16:53:36   Log-likelihood                    869.91
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      2.2719
+Entities:                          49   P-value                           0.0289
+Avg Obs:                       7.1429   Distribution:                   F(7,286)
+Min Obs:                       1.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             1.7921
+                                        P-value                           0.0886
+Time periods:                       9   Distribution:                   F(7,286)
+Avg Obs:                       38.889                                           
+Min Obs:                       26.000                                           
+Max Obs:                       45.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.2100     0.0772     2.7198     0.0069      0.0580      0.3619
+ABTD_L1       -0.0195     0.0275    -0.7085     0.4792     -0.0736      0.0346
+SIZE_L1       -0.0082     0.0035    -2.3140     0.0214     -0.0151     -0.0012
+ROA_L1         0.0232     0.0219     1.0582     0.2909     -0.0200      0.0664
+LEV_L1        -0.0034     0.0071    -0.4773     0.6335     -0.0174      0.0106
+GR_L1          0.0018     0.0043     0.4336     0.6649     -0.0065      0.0102
+PPE_L1        -0.0053     0.0406    -0.1298     0.8968     -0.0852      0.0747
+INTA_L1       -0.0166     0.0264    -0.6286     0.5301     -0.0687      0.0354
+==============================================================================
+
+F-test for Poolability: 7.6391
+P-value: 0.0000
+Distribution: F(56,286)
+
+Included effects: Entity, Time
+[SKIP] setor prestacao de servicos: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor prestacao de servicos: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor prestacao de servicos: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, SIZE_L1, ROA_L1, LEV_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor prestacao de servicos: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: servicos de comunicacao energia e agua | N obs=374 | N firms=39 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:               INOV_INC   R-squared:                        0.0888
+Estimator:                   PanelOLS   R-squared (Between):              0.0884
+No. Observations:                 238   R-squared (Within):               0.0747
+Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0568
+Time:                        16:53:37   Log-likelihood                    591.84
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      2.6731
+Entities:                          31   P-value                           0.0116
+Avg Obs:                       7.6774   Distribution:                   F(7,192)
+Min Obs:                       2.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             4.3157
+                                        P-value                           0.0002
+Time periods:                       9   Distribution:                   F(7,192)
+Avg Obs:                       26.444                                           
+Min Obs:                       24.000                                           
+Max Obs:                       29.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.2140     0.2711     0.7896     0.4307     -0.3206      0.7487
+ABTD_L1        0.0099     0.0334     0.2955     0.7679     -0.0560      0.0758
+SIZE_L1       -0.0081     0.0118    -0.6803     0.4972     -0.0314      0.0153
+ROA_L1         0.0791     0.0281     2.8131     0.0054      0.0236      0.1346
+LEV_L1         0.0114     0.0244     0.4682     0.6402     -0.0367      0.0596
+GR_L1         -0.0070     0.0044    -1.5966     0.1120     -0.0157      0.0017
+PPE_L1         0.0098     0.0424     0.2312     0.8174     -0.0738      0.0934
+INTA_L1        0.0416     0.0303     1.3709     0.1720     -0.0182      0.1014
+==============================================================================
+
+F-test for Poolability: 14.872
+P-value: 0.0000
+Distribution: F(38,192)
+
+Included effects: Entity, Time
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: comercio | N obs=276 | N firms=32 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:               INOV_INC   R-squared:                        0.1117
+Estimator:                   PanelOLS   R-squared (Between):             -1.0201
+No. Observations:                 200   R-squared (Within):               0.0961
+Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.4514
+Time:                        16:53:37   Log-likelihood                    566.56
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      2.7836
+Entities:                          30   P-value                           0.0094
+Avg Obs:                       6.6667   Distribution:                   F(7,155)
+Min Obs:                       1.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             1.3649
+                                        P-value                           0.2239
+Time periods:                       9   Distribution:                   F(7,155)
+Avg Obs:                       22.222                                           
+Min Obs:                       13.000                                           
+Max Obs:                       29.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.2138     0.1171     1.8252     0.0699     -0.0176      0.4451
+ABTD_L1        0.0043     0.0272     0.1576     0.8750     -0.0495      0.0581
+SIZE_L1       -0.0074     0.0052    -1.4367     0.1528     -0.0177      0.0028
+ROA_L1         0.0180     0.0283     0.6350     0.5264     -0.0379      0.0739
+LEV_L1         0.0093     0.0163     0.5702     0.5694     -0.0229      0.0415
+GR_L1          0.0050     0.0065     0.7728     0.4408     -0.0078      0.0178
+PPE_L1        -0.0726     0.0474    -1.5315     0.1277     -0.1662      0.0210
+INTA_L1       -0.0877     0.0701    -1.2507     0.2129     -0.2261      0.0508
+==============================================================================
+
+F-test for Poolability: 6.3084
+P-value: 0.0000
+Distribution: F(37,155)
+
+Included effects: Entity, Time
+[SKIP] setor comercio: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor comercio: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor comercio: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor comercio: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: construcao civil | N obs=229 | N firms=24 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:               INOV_INC   R-squared:                        0.7336
+Estimator:                   PanelOLS   R-squared (Between):             -6.1233
+No. Observations:                 176   R-squared (Within):               0.7183
+Date:                Mon, Feb 23 2026   R-squared (Overall):             -3.9642
+Time:                        16:53:37   Log-likelihood                    634.97
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      53.887
+Entities:                          24   P-value                           0.0000
+Avg Obs:                       7.3333   Distribution:                   F(7,137)
+Min Obs:                       2.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             8.1751
+                                        P-value                           0.0000
+Time periods:                       9   Distribution:                   F(7,137)
+Avg Obs:                       19.556                                           
+Min Obs:                       15.000                                           
+Max Obs:                       23.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.0052     0.0431     0.1205     0.9042     -0.0801      0.0905
+ABTD_L1       -0.0152     0.0142    -1.0710     0.2861     -0.0433      0.0129
+SIZE_L1        0.0008     0.0020     0.4020     0.6883     -0.0031      0.0047
+ROA_L1        -0.0040     0.0118    -0.3366     0.7369     -0.0274      0.0194
+LEV_L1         0.0014     0.0078     0.1737     0.8623     -0.0141      0.0169
+GR_L1          0.0022     0.0015     1.4471     0.1502     -0.0008      0.0053
+PPE_L1        -0.9767     0.2124    -4.5979     0.0000     -1.3968     -0.5567
+INTA_L1       -0.2052     0.0928    -2.2102     0.0288     -0.3887     -0.0216
+==============================================================================
+
+F-test for Poolability: 23.973
+P-value: 0.0000
+Distribution: F(31,137)
+
+Included effects: Entity, Time
+[SKIP] setor construcao civil: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor construcao civil: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor construcao civil: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor construcao civil: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: sociedade de participacao | N obs=180 | N firms=18 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor sociedade de participacao: firms<20
+
+
+SETOR: transportes e servicos relacionados | N obs=147 | N firms=16 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor transportes e servicos relacionados: obs<150; firms<20
+
+[SKIP] setor __outros__: excluído por configuração.
+
+
+=== DEPENDENTE: INOV_RAD ===
+
+
+--- PROXY: ABTD ---
+
+
+SETOR: industria | N obs=1053 | N firms=108 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:               INOV_RAD   R-squared:                        0.0350
+Estimator:                   PanelOLS   R-squared (Between):             -0.2531
+No. Observations:                 162   R-squared (Within):               0.0119
+Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2232
+Time:                        16:53:37   Log-likelihood                    674.03
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      0.6469
+Entities:                          22   P-value                           0.7163
+Avg Obs:                       7.3636   Distribution:                   F(7,125)
+Min Obs:                       2.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             3.3038
+                                        P-value                           0.0029
+Time periods:                       9   Distribution:                   F(7,125)
+Avg Obs:                       18.000                                           
+Min Obs:                       15.000                                           
+Max Obs:                       20.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const         -0.0096     0.0506    -0.1906     0.8492     -0.1098      0.0905
+ABTD_L1       -0.0069     0.0052    -1.3129     0.1916     -0.0172      0.0035
+SIZE_L1        0.0008     0.0022     0.3591     0.7201     -0.0036      0.0052
+ROA_L1         0.0092     0.0079     1.1681     0.2450     -0.0064      0.0247
+LEV_L1         0.0031     0.0040     0.7689     0.4434     -0.0048      0.0109
+GR_L1         -0.0012     0.0015    -0.8177     0.4151     -0.0042      0.0018
+PPE_L1         0.0025     0.0081     0.3040     0.7616     -0.0136      0.0185
+INTA_L1       -0.0034     0.0157    -0.2167     0.8288     -0.0345      0.0277
+==============================================================================
+
+F-test for Poolability: 23.110
+P-value: 0.0000
+Distribution: F(29,125)
+
+Included effects: Entity, Time
+[SKIP] setor industria: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: prestacao de servicos | N obs=484 | N firms=52 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor prestacao de servicos: falha no modelo base (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: servicos de comunicacao energia e agua | N obs=374 | N firms=39 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:               INOV_RAD   R-squared:                        0.2745
+Estimator:                   PanelOLS   R-squared (Between):             -0.1312
+No. Observations:                  82   R-squared (Within):               0.3943
+Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0473
+Time:                        16:53:37   Log-likelihood                    511.62
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      2.9722
+Entities:                          12   P-value                           0.0102
+Avg Obs:                       6.8333   Distribution:                    F(7,55)
+Min Obs:                       2.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             38.938
+                                        P-value                           0.0000
+Time periods:                       9   Distribution:                    F(7,55)
+Avg Obs:                       9.1111                                           
+Min Obs:                       8.0000                                           
+Max Obs:                      10.0000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.0177     0.0184     0.9630     0.3398     -0.0192      0.0546
+ABTD_L1        0.0005     0.0008     0.7193     0.4750     -0.0010      0.0021
+SIZE_L1       -0.0007     0.0008    -0.8693     0.3885     -0.0023      0.0009
+ROA_L1         0.0014     0.0018     0.7357     0.4650     -0.0023      0.0050
+LEV_L1        -0.0001     0.0014    -0.0950     0.9246     -0.0028      0.0026
+GR_L1         -0.0002     0.0003    -0.6738     0.5032     -0.0007      0.0003
+PPE_L1     -7.361e-05     0.0020    -0.0372     0.9704     -0.0040      0.0039
+INTA_L1        0.0035     0.0017     2.0181     0.0485   2.463e-05      0.0070
+==============================================================================
+
+F-test for Poolability: 39.585
+P-value: 0.0000
+Distribution: F(19,55)
+
+Included effects: Entity, Time
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: comercio | N obs=276 | N firms=32 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor comercio: sem observações válidas para o modelo base.
+
+
+SETOR: construcao civil | N obs=229 | N firms=24 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor construcao civil: falha no modelo base (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1
+          const, ABTD_L1, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: sociedade de participacao | N obs=180 | N firms=18 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor sociedade de participacao: firms<20
+
+
+SETOR: transportes e servicos relacionados | N obs=147 | N firms=16 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor transportes e servicos relacionados: obs<150; firms<20
+
+[SKIP] setor __outros__: excluído por configuração.
+
+
+=== DEPENDENTE: INOV_AMBIENTAL ===
+
+
+--- PROXY: ABTD ---
+
+
+SETOR: industria | N obs=1053 | N firms=108 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.0846
+Estimator:                   PanelOLS   R-squared (Between):             -0.0346
+No. Observations:                 276   R-squared (Within):               0.1380
+Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0604
+Time:                        16:53:37   Log-likelihood                   -1092.6
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      2.9300
+Entities:                          39   P-value                           0.0059
+Avg Obs:                       7.0769   Distribution:                   F(7,222)
+Min Obs:                       2.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             1.2840
+                                        P-value                           0.2592
+Time periods:                       9   Distribution:                   F(7,222)
+Avg Obs:                       30.667                                           
+Min Obs:                       24.000                                           
+Max Obs:                       39.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const         -56.303     195.29    -0.2883     0.7734     -441.16      328.55
+ABTD_L1       -26.871     24.895    -1.0794     0.2816     -75.931      22.190
+SIZE_L1        4.1754     8.6252     0.4841     0.6288     -12.822      21.173
+ROA_L1         15.356     20.004     0.7676     0.4435     -24.066      54.777
+LEV_L1         14.218     8.7810     1.6192     0.1068     -3.0867      31.523
+GR_L1          1.1221     3.5167     0.3191     0.7500     -5.8082      8.0524
+PPE_L1        -62.808     43.230    -1.4529     0.1477     -148.00      22.386
+INTA_L1       -24.437     31.423    -0.7777     0.4376     -86.362      37.488
+==============================================================================
+
+F-test for Poolability: 20.544
+P-value: 0.0000
+Distribution: F(46,222)
+
+Included effects: Entity, Time
+[SKIP] setor industria: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: prestacao de servicos | N obs=484 | N firms=52 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.1232
+Estimator:                   PanelOLS   R-squared (Between):              0.1375
+No. Observations:                 121   R-squared (Within):               0.1188
+Date:                Mon, Feb 23 2026   R-squared (Overall):              0.2111
+Time:                        16:53:37   Log-likelihood                   -438.50
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      1.6653
+Entities:                          23   P-value                           0.1289
+Avg Obs:                       5.2609   Distribution:                    F(7,83)
+Min Obs:                       1.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             1.2715
+                                        P-value                           0.2745
+Time periods:                       9   Distribution:                    F(7,83)
+Avg Obs:                       13.444                                           
+Min Obs:                       7.0000                                           
+Max Obs:                       22.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const         -35.970     114.49    -0.3142     0.7542     -263.68      191.74
+ABTD_L1       -42.480     27.666    -1.5355     0.1285     -97.506      12.547
+SIZE_L1        2.6324     4.8233     0.5458     0.5867     -6.9609      12.226
+ROA_L1         8.4274     25.124     0.3354     0.7381     -41.543      58.398
+LEV_L1        -3.7170     8.8152    -0.4217     0.6744     -21.250      13.816
+GR_L1          3.0713     4.2509     0.7225     0.4720     -5.3835      11.526
+PPE_L1        -37.046     42.503    -0.8716     0.3859     -121.58      47.490
+INTA_L1       -89.753     93.041    -0.9647     0.3375     -274.81      95.301
+==============================================================================
+
+F-test for Poolability: 10.010
+P-value: 0.0000
+Distribution: F(30,83)
+
+Included effects: Entity, Time
+[SKIP] setor prestacao de servicos: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor prestacao de servicos: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor prestacao de servicos: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor prestacao de servicos: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: servicos de comunicacao energia e agua | N obs=374 | N firms=39 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.1626
+Estimator:                   PanelOLS   R-squared (Between):              0.0893
+No. Observations:                 136   R-squared (Within):               0.1882
+Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0819
+Time:                        16:53:37   Log-likelihood                   -565.32
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      2.8578
+Entities:                          18   P-value                           0.0091
+Avg Obs:                       7.5556   Distribution:                   F(7,103)
+Min Obs:                       2.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             12.787
+                                        P-value                           0.0000
+Time periods:                       9   Distribution:                   F(7,103)
+Avg Obs:                       15.111                                           
+Min Obs:                       14.000                                           
+Max Obs:                       17.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const         -380.96     281.72    -1.3523     0.1793     -939.68      177.76
+ABTD_L1        12.614     34.592     0.3646     0.7161     -55.992      81.220
+SIZE_L1        16.752     11.475     1.4599     0.1474     -6.0056      39.510
+ROA_L1         12.600     18.517     0.6804     0.4977     -24.124      49.323
+LEV_L1        -15.484     38.745    -0.3996     0.6902     -92.325      61.357
+GR_L1          2.2568     4.5061     0.5008     0.6176     -6.6800      11.194
+PPE_L1         40.798     55.049     0.7411     0.4603     -68.379      149.98
+INTA_L1        68.815     70.578     0.9750     0.3318     -71.159      208.79
+==============================================================================
+
+F-test for Poolability: 12.922
+P-value: 0.0000
+Distribution: F(25,103)
+
+Included effects: Entity, Time
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: comercio | N obs=276 | N firms=32 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.1717
+Estimator:                   PanelOLS   R-squared (Between):             -0.2919
+No. Observations:                  72   R-squared (Within):              -0.0249
+Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1817
+Time:                        16:53:37   Log-likelihood                   -240.48
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      1.3625
+Entities:                          11   P-value                           0.2439
+Avg Obs:                       6.5455   Distribution:                    F(7,46)
+Min Obs:                       2.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             2.2915
+                                        P-value                           0.0433
+Time periods:                       9   Distribution:                    F(7,46)
+Avg Obs:                       8.0000                                           
+Min Obs:                       5.0000                                           
+Max Obs:                       11.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const         -137.14     110.24    -1.2441     0.2198     -359.03      84.754
+ABTD_L1        15.078     27.446     0.5494     0.5854     -40.168      70.323
+SIZE_L1        6.9118     4.8524     1.4244     0.1611     -2.8556      16.679
+ROA_L1        -26.051     28.529    -0.9131     0.3659     -83.478      31.376
+LEV_L1        -25.720     13.460    -1.9108     0.0623     -52.814      1.3739
+GR_L1          2.8951     3.0858     0.9382     0.3530     -3.3163      9.1065
+PPE_L1         5.1503     28.577     0.1802     0.8578     -52.372      62.673
+INTA_L1        62.848     41.648     1.5090     0.1381     -20.985      146.68
+==============================================================================
+
+F-test for Poolability: 27.648
+P-value: 0.0000
+Distribution: F(18,46)
+
+Included effects: Entity, Time
+[SKIP] setor comercio: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor comercio: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor comercio: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor comercio: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: construcao civil | N obs=229 | N firms=24 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.2485
+Estimator:                   PanelOLS   R-squared (Between):             -2.2155
+No. Observations:                  67   R-squared (Within):               0.1528
+Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.4093
+Time:                        16:53:37   Log-likelihood                   -270.66
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      2.0318
+Entities:                           9   P-value                           0.0728
+Avg Obs:                       7.4444   Distribution:                    F(7,43)
+Min Obs:                       4.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             8.2726
+                                        P-value                           0.0000
+Time periods:                       9   Distribution:                    F(7,43)
+Avg Obs:                       7.4444                                           
+Min Obs:                       6.0000                                           
+Max Obs:                       9.0000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          109.41     182.22     0.6004     0.5514     -258.08      476.89
+ABTD_L1       -13.680     81.815    -0.1672     0.8680     -178.67      151.32
+SIZE_L1       -5.4285     8.3878    -0.6472     0.5209     -22.344      11.487
+ROA_L1         8.6081     39.972     0.2154     0.8305     -72.004      89.220
+LEV_L1         65.501     63.874     1.0255     0.3109     -63.313      194.31
+GR_L1         -1.3637     2.7654    -0.4931     0.6244     -6.9405      4.2132
+PPE_L1         1393.0     592.06     2.3528     0.0233      198.98      2587.0
+INTA_L1       -411.28     1388.5    -0.2962     0.7685     -3211.5      2388.9
+==============================================================================
+
+F-test for Poolability: 3.1458
+P-value: 0.0014
+Distribution: F(16,43)
+
+Included effects: Entity, Time
+[SKIP] setor construcao civil: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor construcao civil: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor construcao civil: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor construcao civil: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: sociedade de participacao | N obs=180 | N firms=18 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor sociedade de participacao: firms<20
+
+
+SETOR: transportes e servicos relacionados | N obs=147 | N firms=16 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor transportes e servicos relacionados: obs<150; firms<20
+
+[SKIP] setor __outros__: excluído por configuração.
+
+
+=== DEPENDENTE: INOV_COMP ===
+
+
+--- PROXY: ABTD ---
+
+
+SETOR: industria | N obs=1053 | N firms=108 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:              INOV_COMP   R-squared:                        0.1180
+Estimator:                   PanelOLS   R-squared (Between):             -0.1147
+No. Observations:                 112   R-squared (Within):               0.0292
+Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2244
+Time:                        16:53:37   Log-likelihood                    215.18
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      1.5669
+Entities:                          15   P-value                           0.1569
+Avg Obs:                       7.4667   Distribution:                    F(7,82)
+Min Obs:                       4.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):             2.7790
+                                        P-value                           0.0121
+Time periods:                       9   Distribution:                    F(7,82)
+Avg Obs:                       12.444                                           
+Min Obs:                       11.000                                           
+Max Obs:                       14.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.2464     0.5426     0.4541     0.6509     -0.8331      1.3259
+ABTD_L1       -0.0187     0.0801    -0.2332     0.8162     -0.1780      0.1406
+SIZE_L1       -0.0025     0.0232    -0.1076     0.9145     -0.0486      0.0436
+ROA_L1         0.1010     0.0898     1.1251     0.2638     -0.0776      0.2796
+LEV_L1         0.0340     0.0386     0.8794     0.3817     -0.0429      0.1108
+GR_L1         -0.0088     0.0104    -0.8466     0.3997     -0.0295      0.0119
+PPE_L1        -0.2277     0.1086    -2.0959     0.0392     -0.4437     -0.0116
+INTA_L1        0.0044     0.1568     0.0282     0.9776     -0.3074      0.3163
+==============================================================================
+
+F-test for Poolability: 13.581
+P-value: 0.0000
+Distribution: F(22,82)
+
+Included effects: Entity, Time
+[SKIP] setor industria: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor industria: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: prestacao de servicos | N obs=484 | N firms=52 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor prestacao de servicos: menos de 2 firmas após dropna.
+
+
+SETOR: servicos de comunicacao energia e agua | N obs=374 | N firms=39 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+Modelo base (FE firma+ano; cluster firma)
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:              INOV_COMP   R-squared:                        0.5030
+Estimator:                   PanelOLS   R-squared (Between):              0.1633
+No. Observations:                  32   R-squared (Within):              -0.0052
+Date:                Mon, Feb 23 2026   R-squared (Overall):              0.1760
+Time:                        16:53:38   Log-likelihood                    74.829
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      1.5901
+Entities:                           6   P-value                           0.2360
+Avg Obs:                       5.3333   Distribution:                    F(7,11)
+Min Obs:                       2.0000                                           
+Max Obs:                       9.0000   F-statistic (robust):         -7.106e+14
+                                        P-value                           1.0000
+Time periods:                       9   Distribution:                    F(7,11)
+Avg Obs:                       3.5556                                           
+Min Obs:                       3.0000                                           
+Max Obs:                       4.0000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const         -2.0456     1.2711    -1.6093     0.1358     -4.8432      0.7520
+ABTD_L1       -0.0856     0.1416    -0.6046     0.5577     -0.3973      0.2260
+SIZE_L1        0.0851     0.0546     1.5600     0.1470     -0.0350      0.2052
+ROA_L1        -0.0529     0.2317    -0.2281     0.8237     -0.5629      0.4572
+LEV_L1         0.2040     0.1085     1.8802     0.0868     -0.0348      0.4428
+GR_L1         -0.0033     0.0276    -0.1204     0.9064     -0.0641      0.0574
+PPE_L1         0.3578     0.2237     1.5991     0.1381     -0.1347      0.8502
+INTA_L1        0.3233     0.2873     1.1253     0.2844     -0.3090      0.9556
+==============================================================================
+
+F-test for Poolability: 3.5996
+P-value: 0.0202
+Distribution: F(13,11)
+
+Included effects: Entity, Time
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_AUT_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_C, ABTD_L1_X_FISC_AUT_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_CRED_t (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_C, ABTD_L1_X_FISC_CRED_T_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_AUT_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_AUT_L1_C, ABTD_L1_X_FISC_AUT_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+[SKIP] setor servicos de comunicacao energia e agua: falha moderação FISC_CRED_t-1 (
+The model cannot be estimated. The included effects have fully absorbed
+one or more of the variables. This occurs when one or more of the dependent
+variable is perfectly explained using the effects included in the model.
+
+The following variables or variable combinations have been fully absorbed
+or have become perfectly collinear after effects are removed:
+
+          const, ABTD_L1_C, SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1, FISC_CRED_L1_C, ABTD_L1_X_FISC_CRED_T1_SPLIT
+
+Set drop_absorbed=True to automatically drop absorbed variables.
+).
+
+
+SETOR: comercio | N obs=276 | N firms=32 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor comercio: sem observações válidas para o modelo base.
+
+
+SETOR: construcao civil | N obs=229 | N firms=24 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor construcao civil: menos de 2 firmas após dropna.
+
+
+SETOR: sociedade de participacao | N obs=180 | N firms=18 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor sociedade de participacao: firms<20
+
+
+SETOR: transportes e servicos relacionados | N obs=147 | N firms=16 | anos=2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+[SKIP] setor transportes e servicos relacionados: obs<150; firms<20
+
+[SKIP] setor __outros__: excluído por configuração.

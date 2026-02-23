@@ -1,0 +1,17 @@
+Wide->Long (firma-ano): obs=3905 firms=355 years=2014-2024
+Wide->Long (RFB setor-ano): obs=90 firms=nan years=2015-2024
+Filtro período 2014-2024: obs=3905 firms=355 years=2014-2024
+Setor-key definido a partir de SECTORRF: obs=3905 firms=355 years=2014-2024
+Merge com RFB (setor-ano): obs=3905 firms=355 years=2014-2024
+Cobertura merge RFB setor-ano: 90.9%
+Exclusão de financeiras: obs=3278 firms=298 years=2014-2024
+Filtro ATIVO > 0: obs=2995 firms=292 years=2014-2024
+Filtro LAIR não nulo (LAIR<=0 preservado nesta etapa): obs=2995 firms=292 years=2014-2024
+Missing inovação mantido como NaN (CAPEX, RD, AMB): obs=2995 firms=292 years=2014-2024
+ETRc calculado (LAIR>0) e válido em (0,1); inválidos -> NaN: obs=2995 firms=292 years=2014-2024
+GAAPETR válido em (0,1); inválidos -> NaN: obs=2995 firms=292 years=2014-2024
+Construção variáveis base (controles, inovação, BTD): obs=2995 firms=292 years=2014-2024
+ABTD estimado (resíduo cross-section): obs=2995 firms=292 years=2014-2024
+Winsorização 1% (nível, antes das defasagens): obs=2995 firms=292 years=2014-2024
+Índice composto de inovação (INOV_COMP): obs=2995 firms=292 years=2014-2024
+Corte final de anos (usável após defasagens): obs=2770 firms=292 years=2015-2024

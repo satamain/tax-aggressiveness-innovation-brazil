@@ -79,8 +79,8 @@ Amostra ABTD: período efetivo usado = 2015-2024 (anos: 2015, 2016, 2017, 2018, 
 Dep. Variable:               INOV_INC   R-squared:                       0.221
 Model:                            OLS   Adj. R-squared:                  0.219
 Method:                 Least Squares   F-statistic:                     50.29
-Date:                Mon, 23 Feb 2026   Prob (F-statistic):           5.21e-66
-Time:                        16:53:38   Log-Likelihood:                 3835.4
+Date:                Tue, 24 Feb 2026   Prob (F-statistic):           5.21e-66
+Time:                        14:33:55   Log-Likelihood:                 3835.4
 No. Observations:                1934   AIC:                            -7655.
 Df Residuals:                    1926   BIC:                            -7610.
 Df Model:                           7                                         
@@ -112,8 +112,8 @@ Modelo base (defasado; FE firma+ano; cluster firma)
 Dep. Variable:               INOV_INC   R-squared:                        0.0554
 Estimator:                   PanelOLS   R-squared (Between):             -0.2798
 No. Observations:                1934   R-squared (Within):               0.0531
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2102
-Time:                        16:53:38   Log-likelihood                    4787.4
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.2102
+Time:                        14:33:55   Log-likelihood                    4787.4
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      13.928
 Entities:                         258   P-value                           0.0000
@@ -153,8 +153,8 @@ Modelo base (defasado; Driscoll-Kraay)
 Dep. Variable:               INOV_INC   R-squared:                        0.0554
 Estimator:                   PanelOLS   R-squared (Between):             -0.2798
 No. Observations:                1934   R-squared (Within):               0.0531
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2102
-Time:                        16:53:38   Log-likelihood                    4787.4
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.2102
+Time:                        14:33:55   Log-likelihood                    4787.4
 Cov. Estimator:        Driscoll-Kraay                                           
                                         F-statistic:                      13.928
 Entities:                         258   P-value                           0.0000
@@ -194,8 +194,8 @@ Modelo moderação contemporânea (FISC_AUT_t; centered)
 Dep. Variable:               INOV_INC   R-squared:                        0.0572
 Estimator:                   PanelOLS   R-squared (Between):             -0.2764
 No. Observations:                1934   R-squared (Within):               0.0595
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2104
-Time:                        16:53:38   Log-likelihood                    4789.2
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.2104
+Time:                        14:33:55   Log-likelihood                    4789.2
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      11.183
 Entities:                         258   P-value                           0.0000
@@ -240,8 +240,8 @@ Modelo moderação contemporânea (FISC_CRED_t; centered)
 Dep. Variable:               INOV_INC   R-squared:                        0.0607
 Estimator:                   PanelOLS   R-squared (Between):             -0.2473
 No. Observations:                1934   R-squared (Within):               0.0592
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1895
-Time:                        16:53:38   Log-likelihood                    4792.8
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.1895
+Time:                        14:33:55   Log-likelihood                    4792.8
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      11.917
 Entities:                         258   P-value                           0.0000
@@ -286,8 +286,8 @@ Modelo moderação defasada (FISC_AUT_t-1; centered)
 Dep. Variable:               INOV_INC   R-squared:                        0.0582
 Estimator:                   PanelOLS   R-squared (Between):             -0.3179
 No. Observations:                1934   R-squared (Within):               0.0663
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2446
-Time:                        16:53:38   Log-likelihood                    4790.2
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.2446
+Time:                        14:33:55   Log-likelihood                    4790.2
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      11.383
 Entities:                         258   P-value                           0.0000
@@ -332,8 +332,8 @@ Modelo moderação defasada (FISC_CRED_t-1; centered)
 Dep. Variable:               INOV_INC   R-squared:                        0.0588
 Estimator:                   PanelOLS   R-squared (Between):             -0.2794
 No. Observations:                1934   R-squared (Within):               0.0573
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2125
-Time:                        16:53:38   Log-likelihood                    4790.9
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.2125
+Time:                        14:33:55   Log-likelihood                    4790.9
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      11.523
 Entities:                         258   P-value                           0.0000
@@ -378,8 +378,8 @@ Modelo moderação por setor (proxy_L1 x setor; baseline=industria; setores=indu
 Dep. Variable:               INOV_INC   R-squared:                        0.0600
 Estimator:                   PanelOLS   R-squared (Between):             -0.2787
 No. Observations:                1934   R-squared (Within):               0.0584
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2093
-Time:                        16:53:38   Log-likelihood                    4792.1
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.2093
+Time:                        14:33:55   Log-likelihood                    4792.1
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      7.5384
 Entities:                         258   P-value                           0.0000
@@ -434,8 +434,8 @@ Amostra ABTD: período efetivo usado = 2015-2024 (anos: 2015, 2016, 2017, 2018, 
 Dep. Variable:               INOV_RAD   R-squared:                       0.171
 Model:                            OLS   Adj. R-squared:                  0.149
 Method:                 Least Squares   F-statistic:                     9.607
-Date:                Mon, 23 Feb 2026   Prob (F-statistic):           1.17e-10
-Time:                        16:53:38   Log-Likelihood:                 712.84
+Date:                Tue, 24 Feb 2026   Prob (F-statistic):           1.17e-10
+Time:                        14:33:55   Log-Likelihood:                 712.84
 No. Observations:                 276   AIC:                            -1410.
 Df Residuals:                     268   BIC:                            -1381.
 Df Model:                           7                                         
@@ -467,8 +467,8 @@ Modelo base (defasado; FE firma+ano; cluster firma)
 Dep. Variable:               INOV_RAD   R-squared:                        0.0220
 Estimator:                   PanelOLS   R-squared (Between):             -0.1151
 No. Observations:                 276   R-squared (Within):              -0.0104
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0850
-Time:                        16:53:38   Log-likelihood                    1051.8
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.0850
+Time:                        14:33:55   Log-likelihood                    1051.8
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      0.7123
 Entities:                          39   P-value                           0.6617
@@ -508,8 +508,8 @@ Modelo base (defasado; Driscoll-Kraay)
 Dep. Variable:               INOV_RAD   R-squared:                        0.0220
 Estimator:                   PanelOLS   R-squared (Between):             -0.1151
 No. Observations:                 276   R-squared (Within):              -0.0104
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0850
-Time:                        16:53:38   Log-likelihood                    1051.8
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.0850
+Time:                        14:33:56   Log-likelihood                    1051.8
 Cov. Estimator:        Driscoll-Kraay                                           
                                         F-statistic:                      0.7123
 Entities:                          39   P-value                           0.6617
@@ -549,8 +549,8 @@ Modelo moderação contemporânea (FISC_AUT_t; centered)
 Dep. Variable:               INOV_RAD   R-squared:                        0.0330
 Estimator:                   PanelOLS   R-squared (Between):              0.0029
 No. Observations:                 276   R-squared (Within):               0.0371
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0001
-Time:                        16:53:38   Log-likelihood                    1053.3
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0001
+Time:                        14:33:56   Log-likelihood                    1053.3
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      0.8331
 Entities:                          39   P-value                           0.5863
@@ -595,8 +595,8 @@ Modelo moderação contemporânea (FISC_CRED_t; centered)
 Dep. Variable:               INOV_RAD   R-squared:                        0.0234
 Estimator:                   PanelOLS   R-squared (Between):             -0.1074
 No. Observations:                 276   R-squared (Within):              -0.0089
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0790
-Time:                        16:53:38   Log-likelihood                    1052.0
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.0790
+Time:                        14:33:56   Log-likelihood                    1052.0
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      0.5858
 Entities:                          39   P-value                           0.8081
@@ -641,8 +641,8 @@ Modelo moderação defasada (FISC_AUT_t-1; centered)
 Dep. Variable:               INOV_RAD   R-squared:                        0.0443
 Estimator:                   PanelOLS   R-squared (Between):              0.0014
 No. Observations:                 276   R-squared (Within):              -0.0409
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0241
-Time:                        16:53:38   Log-likelihood                    1054.9
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.0241
+Time:                        14:33:56   Log-likelihood                    1054.9
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.1325
 Entities:                          39   P-value                           0.3408
@@ -687,8 +687,8 @@ Modelo moderação defasada (FISC_CRED_t-1; centered)
 Dep. Variable:               INOV_RAD   R-squared:                        0.0421
 Estimator:                   PanelOLS   R-squared (Between):             -0.0364
 No. Observations:                 276   R-squared (Within):              -0.0148
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0340
-Time:                        16:53:38   Log-likelihood                    1054.6
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.0340
+Time:                        14:33:56   Log-likelihood                    1054.6
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.0747
 Entities:                          39   P-value                           0.3825
@@ -733,8 +733,8 @@ Modelo moderação por setor (proxy_L1 x setor; baseline=industria; setores=indu
 Dep. Variable:               INOV_RAD   R-squared:                        0.0304
 Estimator:                   PanelOLS   R-squared (Between):             -0.1129
 No. Observations:                 276   R-squared (Within):               0.0023
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0857
-Time:                        16:53:38   Log-likelihood                    1052.9
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.0857
+Time:                        14:33:56   Log-likelihood                    1052.9
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      0.4809
 Entities:                          39   P-value                           0.9417
@@ -789,8 +789,8 @@ Amostra ABTD: período efetivo usado = 2015-2024 (anos: 2015, 2016, 2017, 2018, 
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                       0.114
 Model:                            OLS   Adj. R-squared:                  0.105
 Method:                 Least Squares   F-statistic:                     15.72
-Date:                Mon, 23 Feb 2026   Prob (F-statistic):           2.82e-19
-Time:                        16:53:38   Log-Likelihood:                -3544.3
+Date:                Tue, 24 Feb 2026   Prob (F-statistic):           2.82e-19
+Time:                        14:33:56   Log-Likelihood:                -3544.3
 No. Observations:                 735   AIC:                             7105.
 Df Residuals:                     727   BIC:                             7141.
 Df Model:                           7                                         
@@ -822,8 +822,8 @@ Modelo base (defasado; FE firma+ano; cluster firma)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.0453
 Estimator:                   PanelOLS   R-squared (Between):              0.0697
 No. Observations:                 735   R-squared (Within):               0.0864
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0661
-Time:                        16:53:38   Log-likelihood                   -2926.5
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0661
+Time:                        14:33:56   Log-likelihood                   -2926.5
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      4.1447
 Entities:                         109   P-value                           0.0002
@@ -863,8 +863,8 @@ Modelo base (defasado; Driscoll-Kraay)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.0453
 Estimator:                   PanelOLS   R-squared (Between):              0.0697
 No. Observations:                 735   R-squared (Within):               0.0864
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0661
-Time:                        16:53:38   Log-likelihood                   -2926.5
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0661
+Time:                        14:33:56   Log-likelihood                   -2926.5
 Cov. Estimator:        Driscoll-Kraay                                           
                                         F-statistic:                      4.1447
 Entities:                         109   P-value                           0.0002
@@ -904,8 +904,8 @@ Modelo moderação contemporânea (FISC_AUT_t; centered)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.0475
 Estimator:                   PanelOLS   R-squared (Between):              0.0448
 No. Observations:                 735   R-squared (Within):               0.0823
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0333
-Time:                        16:53:38   Log-likelihood                   -2925.6
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0333
+Time:                        14:33:56   Log-likelihood                   -2925.6
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      3.3752
 Entities:                         109   P-value                           0.0005
@@ -950,8 +950,8 @@ Modelo moderação contemporânea (FISC_CRED_t; centered)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.0465
 Estimator:                   PanelOLS   R-squared (Between):              0.0609
 No. Observations:                 735   R-squared (Within):               0.0856
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0638
-Time:                        16:53:38   Log-likelihood                   -2926.0
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0638
+Time:                        14:33:56   Log-likelihood                   -2926.0
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      3.3021
 Entities:                         109   P-value                           0.0006
@@ -996,8 +996,8 @@ Modelo moderação defasada (FISC_AUT_t-1; centered)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.0526
 Estimator:                   PanelOLS   R-squared (Between):             -0.0261
 No. Observations:                 735   R-squared (Within):               0.0623
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0426
-Time:                        16:53:38   Log-likelihood                   -2923.7
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.0426
+Time:                        14:33:56   Log-likelihood                   -2923.7
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      3.7603
 Entities:                         109   P-value                           0.0001
@@ -1042,8 +1042,8 @@ Modelo moderação defasada (FISC_CRED_t-1; centered)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.0462
 Estimator:                   PanelOLS   R-squared (Between):              0.0673
 No. Observations:                 735   R-squared (Within):               0.0866
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0655
-Time:                        16:53:38   Log-likelihood                   -2926.1
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0655
+Time:                        14:33:56   Log-likelihood                   -2926.1
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      3.2779
 Entities:                         109   P-value                           0.0007
@@ -1088,8 +1088,8 @@ Modelo moderação por setor (proxy_L1 x setor; baseline=industria; setores=indu
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.0471
 Estimator:                   PanelOLS   R-squared (Between):              0.0687
 No. Observations:                 735   R-squared (Within):               0.0888
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0660
-Time:                        16:53:38   Log-likelihood                   -2925.8
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0660
+Time:                        14:33:56   Log-likelihood                   -2925.8
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      2.1340
 Entities:                         109   P-value                           0.0091
@@ -1144,8 +1144,8 @@ Amostra ABTD: período efetivo usado = 2015-2024 (anos: 2015, 2016, 2017, 2018, 
 Dep. Variable:              INOV_COMP   R-squared:                       0.177
 Model:                            OLS   Adj. R-squared:                  0.140
 Method:                 Least Squares   F-statistic:                     4.568
-Date:                Mon, 23 Feb 2026   Prob (F-statistic):           0.000116
-Time:                        16:53:38   Log-Likelihood:                 75.217
+Date:                Tue, 24 Feb 2026   Prob (F-statistic):           0.000116
+Time:                        14:33:56   Log-Likelihood:                 75.217
 No. Observations:                 162   AIC:                            -134.4
 Df Residuals:                     154   BIC:                            -109.7
 Df Model:                           7                                         
@@ -1177,8 +1177,8 @@ Modelo base (defasado; FE firma+ano; cluster firma)
 Dep. Variable:              INOV_COMP   R-squared:                        0.0871
 Estimator:                   PanelOLS   R-squared (Between):             -0.1408
 No. Observations:                 162   R-squared (Within):              -0.0916
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1192
-Time:                        16:53:38   Log-likelihood                    282.63
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.1192
+Time:                        14:33:56   Log-likelihood                    282.63
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.6905
 Entities:                          23   P-value                           0.1172
@@ -1218,8 +1218,8 @@ Modelo base (defasado; Driscoll-Kraay)
 Dep. Variable:              INOV_COMP   R-squared:                        0.0871
 Estimator:                   PanelOLS   R-squared (Between):             -0.1408
 No. Observations:                 162   R-squared (Within):              -0.0916
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1192
-Time:                        16:53:38   Log-likelihood                    282.63
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.1192
+Time:                        14:33:56   Log-likelihood                    282.63
 Cov. Estimator:        Driscoll-Kraay                                           
                                         F-statistic:                      1.6905
 Entities:                          23   P-value                           0.1172
@@ -1259,8 +1259,8 @@ Modelo moderação contemporânea (FISC_AUT_t; centered)
 Dep. Variable:              INOV_COMP   R-squared:                        0.1800
 Estimator:                   PanelOLS   R-squared (Between):             -1.7380
 No. Observations:                 162   R-squared (Within):              -1.0434
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -1.0809
-Time:                        16:53:38   Log-likelihood                    291.32
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -1.0809
+Time:                        14:33:56   Log-likelihood                    291.32
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      2.9752
 Entities:                          23   P-value                           0.0031
@@ -1305,8 +1305,8 @@ Modelo moderação contemporânea (FISC_CRED_t; centered)
 Dep. Variable:              INOV_COMP   R-squared:                        0.0879
 Estimator:                   PanelOLS   R-squared (Between):             -0.1313
 No. Observations:                 162   R-squared (Within):              -0.0892
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1135
-Time:                        16:53:38   Log-likelihood                    282.70
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.1135
+Time:                        14:33:56   Log-likelihood                    282.70
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.3063
 Entities:                          23   P-value                           0.2404
@@ -1351,8 +1351,8 @@ Modelo moderação defasada (FISC_AUT_t-1; centered)
 Dep. Variable:              INOV_COMP   R-squared:                        0.2002
 Estimator:                   PanelOLS   R-squared (Between):             -2.0414
 No. Observations:                 162   R-squared (Within):              -1.1341
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -1.2607
-Time:                        16:53:38   Log-likelihood                    293.34
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -1.2607
+Time:                        14:33:56   Log-likelihood                    293.34
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      3.3922
 Entities:                          23   P-value                           0.0010
@@ -1397,8 +1397,8 @@ Modelo moderação defasada (FISC_CRED_t-1; centered)
 Dep. Variable:              INOV_COMP   R-squared:                        0.1208
 Estimator:                   PanelOLS   R-squared (Between):             -0.2274
 No. Observations:                 162   R-squared (Within):              -0.1284
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1259
-Time:                        16:53:39   Log-likelihood                    285.67
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.1259
+Time:                        14:33:56   Log-likelihood                    285.67
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.8622
 Entities:                          23   P-value                           0.0639
@@ -1443,8 +1443,8 @@ Modelo moderação por setor (proxy_L1 x setor; baseline=industria; setores=indu
 Dep. Variable:              INOV_COMP   R-squared:                        0.1020
 Estimator:                   PanelOLS   R-squared (Between):             -0.1350
 No. Observations:                 162   R-squared (Within):              -0.0719
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1157
-Time:                        16:53:39   Log-likelihood                    283.96
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.1157
+Time:                        14:33:56   Log-likelihood                    283.96
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      0.9489
 Entities:                          23   P-value                           0.5096

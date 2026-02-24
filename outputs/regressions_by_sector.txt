@@ -24,8 +24,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:               INOV_INC   R-squared:                        0.0915
 Estimator:                   PanelOLS   R-squared (Between):             -0.2949
 No. Observations:                 747   R-squared (Within):               0.1310
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1900
-Time:                        16:53:36   Log-likelihood                    1847.5
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.1900
+Time:                        14:33:53   Log-likelihood                    1847.5
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      9.1649
 Entities:                          95   P-value                           0.0000
@@ -119,8 +119,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:               INOV_INC   R-squared:                        0.0527
 Estimator:                   PanelOLS   R-squared (Between):             -0.1437
 No. Observations:                 350   R-squared (Within):               0.0646
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0544
-Time:                        16:53:36   Log-likelihood                    869.91
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.0544
+Time:                        14:33:54   Log-likelihood                    869.91
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      2.2719
 Entities:                          49   P-value                           0.0289
@@ -214,8 +214,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:               INOV_INC   R-squared:                        0.0888
 Estimator:                   PanelOLS   R-squared (Between):              0.0884
 No. Observations:                 238   R-squared (Within):               0.0747
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0568
-Time:                        16:53:37   Log-likelihood                    591.84
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0568
+Time:                        14:33:54   Log-likelihood                    591.84
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      2.6731
 Entities:                          31   P-value                           0.0116
@@ -309,8 +309,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:               INOV_INC   R-squared:                        0.1117
 Estimator:                   PanelOLS   R-squared (Between):             -1.0201
 No. Observations:                 200   R-squared (Within):               0.0961
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.4514
-Time:                        16:53:37   Log-likelihood                    566.56
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.4514
+Time:                        14:33:54   Log-likelihood                    566.56
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      2.7836
 Entities:                          30   P-value                           0.0094
@@ -404,8 +404,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:               INOV_INC   R-squared:                        0.7336
 Estimator:                   PanelOLS   R-squared (Between):             -6.1233
 No. Observations:                 176   R-squared (Within):               0.7183
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -3.9642
-Time:                        16:53:37   Log-likelihood                    634.97
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -3.9642
+Time:                        14:33:54   Log-likelihood                    634.97
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      53.887
 Entities:                          24   P-value                           0.0000
@@ -517,8 +517,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:               INOV_RAD   R-squared:                        0.0350
 Estimator:                   PanelOLS   R-squared (Between):             -0.2531
 No. Observations:                 162   R-squared (Within):               0.0119
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2232
-Time:                        16:53:37   Log-likelihood                    674.03
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.2232
+Time:                        14:33:54   Log-likelihood                    674.03
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      0.6469
 Entities:                          22   P-value                           0.7163
@@ -628,8 +628,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:               INOV_RAD   R-squared:                        0.2745
 Estimator:                   PanelOLS   R-squared (Between):             -0.1312
 No. Observations:                  82   R-squared (Within):               0.3943
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0473
-Time:                        16:53:37   Log-likelihood                    511.62
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0473
+Time:                        14:33:54   Log-likelihood                    511.62
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      2.9722
 Entities:                          12   P-value                           0.0102
@@ -763,8 +763,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.0846
 Estimator:                   PanelOLS   R-squared (Between):             -0.0346
 No. Observations:                 276   R-squared (Within):               0.1380
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.0604
-Time:                        16:53:37   Log-likelihood                   -1092.6
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.0604
+Time:                        14:33:55   Log-likelihood                   -1092.6
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      2.9300
 Entities:                          39   P-value                           0.0059
@@ -858,8 +858,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.1232
 Estimator:                   PanelOLS   R-squared (Between):              0.1375
 No. Observations:                 121   R-squared (Within):               0.1188
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.2111
-Time:                        16:53:37   Log-likelihood                   -438.50
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.2111
+Time:                        14:33:55   Log-likelihood                   -438.50
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.6653
 Entities:                          23   P-value                           0.1289
@@ -953,8 +953,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.1626
 Estimator:                   PanelOLS   R-squared (Between):              0.0893
 No. Observations:                 136   R-squared (Within):               0.1882
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.0819
-Time:                        16:53:37   Log-likelihood                   -565.32
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.0819
+Time:                        14:33:55   Log-likelihood                   -565.32
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      2.8578
 Entities:                          18   P-value                           0.0091
@@ -1048,8 +1048,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.1717
 Estimator:                   PanelOLS   R-squared (Between):             -0.2919
 No. Observations:                  72   R-squared (Within):              -0.0249
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.1817
-Time:                        16:53:37   Log-likelihood                   -240.48
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.1817
+Time:                        14:33:55   Log-likelihood                   -240.48
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.3625
 Entities:                          11   P-value                           0.2439
@@ -1143,8 +1143,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:         INOV_AMBIENTAL   R-squared:                        0.2485
 Estimator:                   PanelOLS   R-squared (Between):             -2.2155
 No. Observations:                  67   R-squared (Within):               0.1528
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.4093
-Time:                        16:53:37   Log-likelihood                   -270.66
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.4093
+Time:                        14:33:55   Log-likelihood                   -270.66
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      2.0318
 Entities:                           9   P-value                           0.0728
@@ -1256,8 +1256,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:              INOV_COMP   R-squared:                        0.1180
 Estimator:                   PanelOLS   R-squared (Between):             -0.1147
 No. Observations:                 112   R-squared (Within):               0.0292
-Date:                Mon, Feb 23 2026   R-squared (Overall):             -0.2244
-Time:                        16:53:37   Log-likelihood                    215.18
+Date:                Tue, Feb 24 2026   R-squared (Overall):             -0.2244
+Time:                        14:33:55   Log-likelihood                    215.18
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.5669
 Entities:                          15   P-value                           0.1569
@@ -1356,8 +1356,8 @@ Modelo base (FE firma+ano; cluster firma)
 Dep. Variable:              INOV_COMP   R-squared:                        0.5030
 Estimator:                   PanelOLS   R-squared (Between):              0.1633
 No. Observations:                  32   R-squared (Within):              -0.0052
-Date:                Mon, Feb 23 2026   R-squared (Overall):              0.1760
-Time:                        16:53:38   Log-likelihood                    74.829
+Date:                Tue, Feb 24 2026   R-squared (Overall):              0.1760
+Time:                        14:33:55   Log-likelihood                    74.829
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      1.5901
 Entities:                           6   P-value                           0.2360

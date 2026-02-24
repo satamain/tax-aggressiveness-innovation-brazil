@@ -25,6 +25,8 @@ from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+from scipy.stats import chi2, jarque_bera, kurtosis, norm, skew, spearmanr
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 try:
     from linearmodels.panel import PanelOLS
@@ -32,6 +34,13 @@ try:
     _HAS_LINEARMODELS = True
 except Exception:
     _HAS_LINEARMODELS = False
+
+try:
+    from linearmodels.panel import RandomEffects
+
+    _HAS_RANDOM_EFFECTS = True
+except Exception:
+    _HAS_RANDOM_EFFECTS = False
 
 
 # =========================
@@ -105,6 +114,23 @@ SECTOR_SPLIT_USE_GROUPING = True
 SECTOR_SPLIT_EXCLUDE_OUTROS = True
 OUTPUT_REGRESSIONS_BY_SECTOR = "regressions_by_sector.txt"
 OUTPUT_REGRESSIONS_FINAL_FE_BY_SECTOR = "regressions_final_fe_by_sector.txt"
+
+# Diagnósticos econométricos (arquivo separado)
+RUN_DIAGNOSTICS = True
+DIAGNOSTICS_FILE = "diagnostics.txt"
+SPEARMAN_METHOD = "spearman"
+VIF_INCLUDE_CONST = True
+HAUSMAN_ALPHA = 0.05
+
+# Robustez avançada (arquivo separado)
+RUN_ADVANCED_ROBUSTNESS = True
+ROBUSTNESS_FILE = "robustness_diagnostics.txt"
+RUN_DRISCOLL_KRAAY = True
+RUN_WOOLDRIDGE = True
+RUN_PESARAN_CD = True
+RUN_JARQUE_BERA = True
+DK_LAGS = 1  # default conservador
+PLOT_RESIDUALS = False  # se True, salva gráficos simples em outputs/
 
 # Índice composto de inovação (Entropia + TOPSIS)
 USE_INNOVATION_COMPOSITE = True
@@ -844,6 +870,783 @@ def pick_proxy_cols(proxy: str):
 
 import matplotlib.pyplot as plt
 
+
+def _pick_proxy_l1_for_base(proxy: str, df: pd.DataFrame) -> Optional[str]:
+    p = str(proxy).upper().strip()
+    if p == "ABTD":
+        candidates = ["ABTD_L1", "TAXAGG_ABTD_L1"]
+    elif p == "ETRC":
+        candidates = ["TAXAGG_ETRC_L1", "ETRC_L1"]
+    elif p == "GAAPETR":
+        candidates = ["TAXAGG_GAAP_L1", "GAAPETR_L1", "GAAPETR_USED_L1"]
+    else:
+        return None
+    return next((c for c in candidates if c in df.columns), None)
+
+
+def _filter_panel_for_proxy(
+    panel_l1: pd.DataFrame,
+    proxy: str,
+    drop_lair_nonpos_for_abtd: bool = False,
+    drop_lair_nonpos_for_etr: bool = True,
+) -> pd.DataFrame:
+    proxy_panel = panel_l1.copy()
+    proxy_u = str(proxy).upper().strip()
+
+    if proxy_u in {"ETRC", "GAAPETR"}:
+        if drop_lair_nonpos_for_etr and "LAIR_L1" in proxy_panel.columns:
+            lair_l1 = pd.to_numeric(proxy_panel["LAIR_L1"], errors="coerce")
+            proxy_panel = proxy_panel[lair_l1 > 0].copy()
+
+        if proxy_u == "ETRC":
+            etr_l1 = (
+                pd.to_numeric(proxy_panel["ETRC_L1"], errors="coerce")
+                if "ETRC_L1" in proxy_panel.columns
+                else 1.0 - pd.to_numeric(proxy_panel.get("TAXAGG_ETRC_L1"), errors="coerce")
+            )
+        else:
+            etr_l1 = (
+                pd.to_numeric(proxy_panel["GAAPETR_USED_L1"], errors="coerce")
+                if "GAAPETR_USED_L1" in proxy_panel.columns
+                else 1.0 - pd.to_numeric(proxy_panel.get("TAXAGG_GAAP_L1"), errors="coerce")
+            )
+        proxy_panel = proxy_panel[etr_l1.gt(0) & etr_l1.lt(1)].copy()
+    elif proxy_u == "ABTD" and drop_lair_nonpos_for_abtd and "LAIR_L1" in proxy_panel.columns:
+        lair_l1 = pd.to_numeric(proxy_panel["LAIR_L1"], errors="coerce")
+        proxy_panel = proxy_panel[lair_l1 > 0].copy()
+
+    return proxy_panel
+
+
+def write_diagnostics(
+    panel_l1: pd.DataFrame,
+    y_list: Sequence[str],
+    proxies_to_run: Sequence[str],
+    controls_l1: Sequence[str],
+    outdir: Path,
+    diagnostics_file: str = "diagnostics.txt",
+    spearman_method: str = "spearman",
+    vif_include_const: bool = True,
+    hausman_alpha: float = 0.05,
+    drop_lair_nonpos_for_abtd: bool = False,
+    drop_lair_nonpos_for_etr: bool = True,
+) -> Path:
+    out_path = outdir / diagnostics_file
+    lines: List[str] = []
+
+    def emit(msg: str = "") -> None:
+        lines.append(msg)
+
+    emit("DIAGNOSTICOS ECONOMETRICOS\n")
+
+    # (1) SPEARMAN: amostra base mais ampla (ABTD)
+    emit("=== SPEARMAN (coeficientes) ===")
+    base_sample = _filter_panel_for_proxy(
+        panel_l1,
+        proxy="ABTD",
+        drop_lair_nonpos_for_abtd=drop_lair_nonpos_for_abtd,
+        drop_lair_nonpos_for_etr=drop_lair_nonpos_for_etr,
+    )
+    spearman_cols: List[str] = []
+    spearman_proxy_candidates = [
+        ["ABTD_L1", "TAXAGG_ABTD_L1"],
+        ["TAXAGG_ETRC_L1", "ETRC_L1"],
+        ["TAXAGG_GAAP_L1", "GAAPETR_L1", "GAAPETR_USED_L1"],
+    ]
+    for candidates in spearman_proxy_candidates:
+        col = next((c for c in candidates if c in base_sample.columns), None)
+        if col:
+            spearman_cols.append(col)
+
+    innovation_vars = ["INOV_INC", "INOV_RAD", "INOV_AMBIENTAL"]
+    if "INOV_COMP" in base_sample.columns:
+        innovation_vars.append("INOV_COMP")
+    spearman_cols.extend([c for c in innovation_vars if c in base_sample.columns])
+
+    control_candidates = ["SIZE_L1", "ROA_L1", "LEV_L1", "GR_L1", "PPE_L1", "INTA_L1"]
+    spearman_cols.extend([c for c in control_candidates if c in base_sample.columns])
+    spearman_cols.extend([c for c in ["FISC_AUT", "FISC_CRED"] if c in base_sample.columns])
+    spearman_cols = list(dict.fromkeys(spearman_cols))
+
+    if str(spearman_method).strip().lower() != "spearman":
+        emit(f"[AVISO] SPEARMAN_METHOD='{spearman_method}' não suportado; usando 'spearman'.")
+
+    if len(spearman_cols) < 2:
+        emit(f"[AVISO] Spearman ignorado: menos de 2 variáveis disponíveis ({spearman_cols}).")
+        emit("=== SPEARMAN (p-values) ===")
+        emit("[AVISO] Spearman sem matriz de p-values.")
+    else:
+        x_spear = base_sample[spearman_cols].apply(pd.to_numeric, errors="coerce")
+        n_complete = int(x_spear.dropna().shape[0])
+        emit(
+            f"N amostra ABTD pós-filtros={len(base_sample)} | "
+            f"N completo (todas variáveis Spearman)={n_complete}"
+        )
+        spr = spearmanr(x_spear.to_numpy(dtype=float), axis=0, nan_policy="omit")
+        if hasattr(spr, "correlation"):
+            coef_m = spr.correlation
+            pval_m = spr.pvalue
+        elif isinstance(spr, tuple):
+            coef_m, pval_m = spr
+        else:
+            coef_m, pval_m = np.nan, np.nan
+
+        coef_m = np.asarray(coef_m)
+        pval_m = np.asarray(pval_m)
+        if coef_m.ndim == 0:
+            coef_m = np.array([[float(coef_m)]], dtype=float)
+            pval_m = np.array([[float(pval_m)]], dtype=float)
+
+        coef_df = pd.DataFrame(coef_m, index=spearman_cols, columns=spearman_cols)
+        pval_df = pd.DataFrame(pval_m, index=spearman_cols, columns=spearman_cols)
+        emit(coef_df.round(4).to_string())
+        emit("\n=== SPEARMAN (p-values) ===")
+        emit(pval_df.round(4).to_string())
+
+    # (2) VIF: modelo base por proxy
+    controls_base = [c for c in controls_l1 if c in panel_l1.columns]
+    for proxy in ["ABTD", "ETRC", "GAAPETR"]:
+        emit(f"\n=== VIF (modelo base) | PROXY: {proxy} ===")
+        sample = _filter_panel_for_proxy(
+            panel_l1,
+            proxy=proxy,
+            drop_lair_nonpos_for_abtd=drop_lair_nonpos_for_abtd,
+            drop_lair_nonpos_for_etr=drop_lair_nonpos_for_etr,
+        )
+        proxy_l1 = _pick_proxy_l1_for_base(proxy, sample)
+        if not proxy_l1:
+            emit(f"[AVISO] Proxy {proxy} ignorada no VIF: coluna L1 não encontrada.")
+            continue
+
+        x_cols = [proxy_l1] + controls_base
+        x_cols = [c for c in x_cols if c in sample.columns]
+        if proxy_l1 not in x_cols:
+            emit(f"[AVISO] Proxy {proxy} ignorada no VIF: {proxy_l1} ausente na amostra.")
+            continue
+
+        x_use = sample[x_cols].apply(pd.to_numeric, errors="coerce").dropna().copy()
+        n_obs = int(len(x_use))
+        if n_obs < 2:
+            emit("[AVISO] VIF ignorado: amostra insuficiente após dropna.")
+            continue
+
+        if vif_include_const:
+            x_vif = sm.add_constant(x_use, has_constant="add")
+        else:
+            x_vif = x_use.copy()
+
+        vif_rows: List[Dict[str, object]] = []
+        mat = x_vif.to_numpy(dtype=float)
+        for i, col in enumerate(x_vif.columns):
+            if col.lower() in {"const", "intercept"}:
+                continue
+            try:
+                vif_val = float(variance_inflation_factor(mat, i))
+            except Exception:
+                vif_val = np.nan
+            vif_rows.append({"variable": col, "vif": vif_val, "n_obs": n_obs})
+
+        if not vif_rows:
+            emit("[AVISO] VIF sem variáveis estimáveis.")
+            continue
+        vif_df = pd.DataFrame(vif_rows, columns=["variable", "vif", "n_obs"])
+        emit(vif_df.round({"vif": 4}).to_string(index=False))
+
+    # (3) HAUSMAN: FE vs RE por dependente e proxy
+    for y in y_list:
+        if y not in panel_l1.columns:
+            emit(f"\n=== HAUSMAN | DEP: {y} | PROXY: N/A ===")
+            emit(f"[AVISO] Dependente {y} ausente no painel; teste ignorado.")
+            continue
+        for proxy in proxies_to_run:
+            proxy_u = str(proxy).upper().strip()
+            emit(f"\n=== HAUSMAN | DEP: {y} | PROXY: {proxy_u} ===")
+
+            if (not _HAS_LINEARMODELS) or (not _HAS_RANDOM_EFFECTS):
+                emit("[AVISO] linearmodels/RandomEffects indisponível; Hausman ignorado.")
+                continue
+
+            sample = _filter_panel_for_proxy(
+                panel_l1,
+                proxy=proxy_u,
+                drop_lair_nonpos_for_abtd=drop_lair_nonpos_for_abtd,
+                drop_lair_nonpos_for_etr=drop_lair_nonpos_for_etr,
+            )
+            proxy_l1 = _pick_proxy_l1_for_base(proxy_u, sample)
+            if not proxy_l1:
+                emit(f"[AVISO] Proxy {proxy_u} sem coluna L1; Hausman ignorado.")
+                continue
+
+            x_cols = [proxy_l1] + [c for c in controls_l1 if c in sample.columns]
+            x_cols = [c for c in x_cols if c in sample.columns]
+            if proxy_l1 not in x_cols:
+                emit(f"[AVISO] Proxy {proxy_u} fora do conjunto de regressoras; Hausman ignorado.")
+                continue
+
+            needed_cols = ["RIC", "ANO", y] + x_cols
+            missing_needed = [c for c in needed_cols if c not in sample.columns]
+            if missing_needed:
+                emit(f"[AVISO] Hausman ignorado: colunas ausentes {missing_needed}.")
+                continue
+
+            use = sample[needed_cols].copy()
+            use[y] = pd.to_numeric(use[y], errors="coerce")
+            for c in x_cols:
+                use[c] = pd.to_numeric(use[c], errors="coerce")
+            use["ANO"] = pd.to_numeric(use["ANO"], errors="coerce")
+            use = use.dropna().copy()
+
+            if use.empty:
+                emit("[AVISO] Hausman ignorado: amostra vazia após dropna.")
+                continue
+
+            n_obs = int(len(use))
+            n_firms = int(use["RIC"].nunique())
+            years = sorted(use["ANO"].astype(int).unique().tolist())
+            years_txt = ", ".join(str(v) for v in years) if years else "nenhum"
+
+            use = use.set_index(["RIC", "ANO"])
+            Y = use[y].astype(float)
+            X = sm.add_constant(use[x_cols].astype(float), has_constant="add")
+
+            try:
+                fe_mod = PanelOLS(Y, X, entity_effects=True, time_effects=True)
+                fe_res = fe_mod.fit(cov_type="clustered", cluster_entity=True)
+
+                re_mod = RandomEffects(Y, X)
+                re_res = re_mod.fit(cov_type="clustered", cluster_entity=True)
+            except Exception as exc:
+                emit(f"[AVISO] Hausman não estimado para {y}/{proxy_u}: {exc}")
+                emit(f"N obs={n_obs}, N firms={n_firms}, anos={years_txt}")
+                continue
+
+            common = [p for p in fe_res.params.index if p in re_res.params.index and p.lower() not in {"const", "intercept"}]
+            if not common:
+                emit("[AVISO] Hausman sem regressoras comuns FE/RE (excluindo intercepto).")
+                emit(f"N obs={n_obs}, N firms={n_firms}, anos={years_txt}")
+                continue
+
+            try:
+                b_fe = fe_res.params.loc[common].to_numpy(dtype=float)
+                b_re = re_res.params.loc[common].to_numpy(dtype=float)
+                v_fe = fe_res.cov.loc[common, common].to_numpy(dtype=float)
+                v_re = re_res.cov.loc[common, common].to_numpy(dtype=float)
+            except Exception as exc:
+                emit(f"[AVISO] Hausman sem matriz alinhada FE/RE: {exc}")
+                emit(f"N obs={n_obs}, N firms={n_firms}, anos={years_txt}")
+                continue
+
+            diff = b_fe - b_re
+            v_diff = v_fe - v_re
+            used_pinv = False
+            try:
+                v_diff_inv = np.linalg.inv(v_diff)
+            except np.linalg.LinAlgError:
+                v_diff_inv = np.linalg.pinv(v_diff)
+                used_pinv = True
+
+            stat = float(diff.T @ v_diff_inv @ diff)
+            if not np.isfinite(stat):
+                emit("[AVISO] Hausman com estatística não finita; teste ignorado.")
+                emit(f"N obs={n_obs}, N firms={n_firms}, anos={years_txt}")
+                continue
+            if stat < 0 and abs(stat) < 1e-10:
+                stat = 0.0
+
+            df_h = int(len(diff))
+            if df_h <= 0:
+                emit("[AVISO] Hausman com graus de liberdade inválidos; teste ignorado.")
+                emit(f"N obs={n_obs}, N firms={n_firms}, anos={years_txt}")
+                continue
+
+            p_value = float(1.0 - chi2.cdf(stat, df_h))
+            reject = "SIM" if p_value < hausman_alpha else "NÃO"
+            alpha_pct = 100.0 * float(hausman_alpha)
+            emit(
+                f"chi2={stat:.6f}, df={df_h}, p={p_value:.6g}, "
+                f"decisão (rejeita FE vs RE a {alpha_pct:.1f}%?): {reject}"
+            )
+            if used_pinv:
+                emit("AVISO: V_diff não invertível; usada pseudo-inversa (pinv).")
+            emit(f"N obs={n_obs}, N firms={n_firms}, anos={years_txt}")
+
+    out_path.write_text("\n".join(lines), encoding="utf-8")
+    return out_path
+
+
+def _fmt_metric(v: Optional[float], digits: int = 6) -> str:
+    if v is None:
+        return "NA"
+    try:
+        vf = float(v)
+    except Exception:
+        return "NA"
+    if not np.isfinite(vf):
+        return "NA"
+    return f"{vf:.{digits}f}"
+
+
+def _prepare_fe_sample(
+    df: pd.DataFrame,
+    y: str,
+    x: Sequence[str],
+    entity: str = "RIC",
+    time: str = "ANO",
+) -> Tuple[Optional[pd.DataFrame], Optional[pd.Series], Optional[pd.DataFrame], Optional[str]]:
+    needed = [entity, time, y] + list(x)
+    missing = [c for c in needed if c not in df.columns]
+    if missing:
+        return None, None, None, f"colunas ausentes: {missing}"
+
+    use = df[needed].copy()
+    use[y] = pd.to_numeric(use[y], errors="coerce")
+    for c in x:
+        use[c] = pd.to_numeric(use[c], errors="coerce")
+    use[time] = pd.to_numeric(use[time], errors="coerce")
+    use = use.dropna().copy()
+    if use.empty:
+        return None, None, None, "amostra vazia após dropna"
+
+    use[time] = use[time].astype(int)
+    use = use.set_index([entity, time]).sort_index()
+    Y = use[y].astype(float)
+    X = sm.add_constant(use[list(x)].astype(float), has_constant="add")
+    return use, Y, X, None
+
+
+def _fit_fe_with_cov(
+    Y: pd.Series,
+    X: pd.DataFrame,
+    cov_kind: str = "clustered",
+    dk_lags: int = 1,
+) -> Tuple[Optional[object], str]:
+    mod = PanelOLS(Y, X, entity_effects=True, time_effects=True)
+
+    if cov_kind == "clustered":
+        try:
+            res = mod.fit(cov_type="clustered", cluster_entity=True)
+            return res, "cov_type=clustered, cluster_entity=True"
+        except Exception as exc:
+            return None, f"falha clustered: {exc}"
+
+    if cov_kind != "driscoll-kraay":
+        try:
+            res = mod.fit(cov_type=cov_kind)
+            return res, f"cov_type={cov_kind}"
+        except Exception as exc:
+            return None, f"falha {cov_kind}: {exc}"
+
+    attempts: List[Tuple[Dict[str, object], str]] = [
+        (
+            {"cov_type": "driscoll-kraay", "debiased": True, "bandwidth": int(max(1, dk_lags))},
+            f"cov_type=driscoll-kraay, debiased=True, bandwidth={int(max(1, dk_lags))}",
+        ),
+        (
+            {"cov_type": "driscoll-kraay", "bandwidth": int(max(1, dk_lags))},
+            f"cov_type=driscoll-kraay, bandwidth={int(max(1, dk_lags))}",
+        ),
+        ({"cov_type": "driscoll-kraay", "debiased": True}, "cov_type=driscoll-kraay, debiased=True"),
+        ({"cov_type": "driscoll-kraay"}, "cov_type=driscoll-kraay"),
+        (
+            {"cov_type": "kernel", "kernel": "bartlett", "debiased": True, "bandwidth": int(max(1, dk_lags))},
+            f"cov_type=kernel(bartlett), debiased=True, bandwidth={int(max(1, dk_lags))}",
+        ),
+        (
+            {"cov_type": "kernel", "kernel": "bartlett", "bandwidth": int(max(1, dk_lags))},
+            f"cov_type=kernel(bartlett), bandwidth={int(max(1, dk_lags))}",
+        ),
+        ({"cov_type": "kernel", "kernel": "bartlett"}, "cov_type=kernel(bartlett)"),
+    ]
+
+    errs: List[str] = []
+    for kwargs, label in attempts:
+        try:
+            res = mod.fit(**kwargs)
+            return res, label
+        except Exception as exc:
+            errs.append(f"{label} -> {exc}")
+    return None, "falha DK em todas as especificações: " + " | ".join(errs[:3])
+
+
+def _extract_coef_p(res: Optional[object], term: str) -> Tuple[Optional[float], Optional[float]]:
+    if res is None:
+        return None, None
+    try:
+        if term not in res.params.index:
+            return None, None
+        beta = float(res.params.loc[term])
+        pval = float(res.pvalues.loc[term]) if term in res.pvalues.index else None
+        return beta, pval
+    except Exception:
+        return None, None
+
+
+def _wooldridge_ar1_from_residuals(resid: pd.Series) -> Tuple[Optional[float], Optional[float], int, int, int, Optional[str]]:
+    if resid is None:
+        return None, None, 0, 0, 0, "resíduos ausentes"
+    r = pd.to_numeric(resid, errors="coerce").dropna()
+    if r.empty:
+        return None, None, 0, 0, 0, "resíduos vazios"
+    if not isinstance(r.index, pd.MultiIndex) or len(r.index.names) < 2:
+        return None, None, int(len(r)), 0, 0, "índice dos resíduos não é painel (entity,time)"
+
+    idx_names = list(r.index.names)
+    ent_col = idx_names[0] if idx_names[0] else "RIC"
+    time_col = idx_names[1] if idx_names[1] else "ANO"
+
+    df = r.rename("e").reset_index()
+    df[time_col] = pd.to_numeric(df[time_col], errors="coerce")
+    df = df.dropna(subset=[time_col]).copy()
+    if df.empty:
+        return None, None, 0, 0, 0, "sem ano válido nos resíduos"
+    df[time_col] = df[time_col].astype(int)
+    df = df.sort_values([ent_col, time_col]).copy()
+    df["e_lag"] = df.groupby(ent_col)["e"].shift(1)
+    aux = df[["e", "e_lag", ent_col, time_col]].dropna().copy()
+    if len(aux) < 5:
+        return None, None, int(len(aux)), int(aux[ent_col].nunique()), int(aux[time_col].nunique()), "N insuficiente após lag"
+
+    try:
+        y_aux = aux["e"].astype(float)
+        x_aux = aux[["e_lag"]].astype(float)  # sem intercepto
+        fit = sm.OLS(y_aux, x_aux).fit()
+        t_stat = float(fit.tvalues.loc["e_lag"])
+        stat = float(t_stat * t_stat)
+        pval = float(1.0 - chi2.cdf(stat, 1))
+        return stat, pval, int(len(aux)), int(aux[ent_col].nunique()), int(aux[time_col].nunique()), None
+    except Exception as exc:
+        return None, None, int(len(aux)), int(aux[ent_col].nunique()), int(aux[time_col].nunique()), str(exc)
+
+
+def _pesaran_cd_from_residuals(resid: pd.Series) -> Tuple[Optional[float], Optional[float], int, int, Optional[str]]:
+    if resid is None:
+        return None, None, 0, 0, "resíduos ausentes"
+    r = pd.to_numeric(resid, errors="coerce").dropna()
+    if r.empty:
+        return None, None, 0, 0, "resíduos vazios"
+    if not isinstance(r.index, pd.MultiIndex) or len(r.index.names) < 2:
+        return None, None, 0, 0, "índice dos resíduos não é painel (entity,time)"
+
+    idx_names = list(r.index.names)
+    ent_col = idx_names[0] if idx_names[0] else "RIC"
+    time_col = idx_names[1] if idx_names[1] else "ANO"
+
+    df = r.rename("e").reset_index()
+    df[time_col] = pd.to_numeric(df[time_col], errors="coerce")
+    df = df.dropna(subset=[time_col]).copy()
+    if df.empty:
+        return None, None, 0, 0, "sem ano válido nos resíduos"
+    df[time_col] = df[time_col].astype(int)
+
+    mat = df.pivot_table(index=time_col, columns=ent_col, values="e", aggfunc="mean")
+    firms = [c for c in mat.columns.tolist()]
+    n_firms = int(len(firms))
+    t_years = int(mat.index.nunique())
+    if n_firms < 2:
+        return None, None, n_firms, t_years, "menos de 2 firmas"
+    if t_years < 2:
+        return None, None, n_firms, t_years, "menos de 2 anos"
+
+    terms: List[float] = []
+    for i in range(n_firms):
+        for j in range(i + 1, n_firms):
+            pair = mat[[firms[i], firms[j]]].dropna()
+            tij = int(len(pair))
+            if tij < 2:
+                continue
+            s1 = float(pair.iloc[:, 0].std(ddof=0))
+            s2 = float(pair.iloc[:, 1].std(ddof=0))
+            if s1 <= 0 or s2 <= 0:
+                continue
+            rho = float(pair.iloc[:, 0].corr(pair.iloc[:, 1]))
+            if not np.isfinite(rho):
+                continue
+            terms.append(np.sqrt(tij) * rho)
+
+    m = int(len(terms))
+    if m == 0:
+        return None, None, n_firms, t_years, "sem pares válidos para correlação"
+
+    cd_stat = float(np.sqrt(2.0 / m) * np.sum(terms))
+    pval = float(2.0 * (1.0 - norm.cdf(abs(cd_stat))))
+    return cd_stat, pval, n_firms, t_years, None
+
+
+def _save_residual_plots(resid: pd.Series, outdir: Path, y: str, proxy: str) -> Optional[str]:
+    r = pd.to_numeric(resid, errors="coerce").dropna()
+    if len(r) < 10:
+        return "N insuficiente para gráficos"
+    try:
+        hist_path = outdir / f"residual_hist_{y}_{proxy}.png"
+        qq_path = outdir / f"residual_qq_{y}_{proxy}.png"
+
+        fig, ax = plt.subplots(figsize=(7, 4))
+        ax.hist(r.to_numpy(dtype=float), bins=30, color="#4C78A8", alpha=0.85, edgecolor="white")
+        ax.set_title(f"Resíduos FE (hist) | DEP={y} | PROXY={proxy}")
+        ax.set_xlabel("Resíduo")
+        ax.set_ylabel("Frequência")
+        fig.tight_layout()
+        fig.savefig(hist_path, dpi=150)
+        plt.close(fig)
+
+        fig = plt.figure(figsize=(5, 5))
+        sm.qqplot(r.to_numpy(dtype=float), line="45", fit=True)
+        plt.title(f"QQ-plot Resíduos FE | DEP={y} | PROXY={proxy}")
+        fig.tight_layout()
+        fig.savefig(qq_path, dpi=150)
+        plt.close(fig)
+        return None
+    except Exception as exc:
+        return str(exc)
+
+
+def write_advanced_robustness(
+    panel_l1: pd.DataFrame,
+    y_list: Sequence[str],
+    proxies_to_run: Sequence[str],
+    controls_l1: Sequence[str],
+    outdir: Path,
+    robustness_file: str = "robustness_diagnostics.txt",
+    run_driscoll_kraay: bool = True,
+    run_wooldridge: bool = True,
+    run_pesaran_cd: bool = True,
+    run_jarque_bera: bool = True,
+    dk_lags: int = 1,
+    plot_residuals: bool = False,
+    drop_lair_nonpos_for_abtd: bool = False,
+    drop_lair_nonpos_for_etr: bool = True,
+) -> Path:
+    out_path = outdir / robustness_file
+    lines: List[str] = []
+
+    def emit(msg: str = "") -> None:
+        lines.append(msg)
+
+    years_all: List[int] = []
+    if "ANO" in panel_l1.columns:
+        years_all = sorted(pd.to_numeric(panel_l1["ANO"], errors="coerce").dropna().astype(int).unique().tolist())
+    year_span = f"{years_all[0]}-{years_all[-1]}" if years_all else "N/A"
+    proxies_clean = [str(p).upper().strip() for p in proxies_to_run]
+    controls_clean = [c for c in controls_l1 if c in panel_l1.columns]
+
+    emit("ROBUSTEZ AVANCADA (DK, WOOLDRIDGE, PESARAN CD, JARQUE-BERA)\n")
+    emit(f"Amostra painel final (panel_l1): N={len(panel_l1)}, firms={panel_l1['RIC'].nunique() if 'RIC' in panel_l1.columns else 0}, periodo={year_span}")
+    emit(f"Dependentes: {', '.join(y_list) if y_list else 'nenhuma'}")
+    emit(f"Proxies: {', '.join(proxies_clean) if proxies_clean else 'nenhuma'}")
+    emit(f"Controles L1: {', '.join(controls_clean) if controls_clean else 'nenhum'}")
+    emit(
+        "Flags: "
+        f"DK={'on' if run_driscoll_kraay else 'off'}, "
+        f"Wooldridge={'on' if run_wooldridge else 'off'}, "
+        f"PesaranCD={'on' if run_pesaran_cd else 'off'}, "
+        f"JB={'on' if run_jarque_bera else 'off'}, "
+        f"DK_LAGS={int(max(1, dk_lags))}, "
+        f"PLOT_RESIDUALS={'on' if plot_residuals else 'off'}"
+    )
+
+    if not _HAS_LINEARMODELS:
+        emit("\n[SKIP] linearmodels indisponível: FE/DK/Wooldridge/Pesaran/JB dos resíduos FE não podem ser estimados.")
+        out_path.write_text("\n".join(lines), encoding="utf-8")
+        return out_path
+
+    base_residuals: Dict[Tuple[str, str], pd.Series] = {}
+    base_counts: Dict[Tuple[str, str], Tuple[int, int, int]] = {}
+
+    for y in y_list:
+        if y not in panel_l1.columns:
+            emit(f"\n[SKIP] DEP={y}: coluna ausente no painel.")
+            continue
+
+        for proxy in proxies_clean:
+            sample = _filter_panel_for_proxy(
+                panel_l1,
+                proxy=proxy,
+                drop_lair_nonpos_for_abtd=drop_lair_nonpos_for_abtd,
+                drop_lair_nonpos_for_etr=drop_lair_nonpos_for_etr,
+            )
+            proxy_l1 = _pick_proxy_l1_for_base(proxy, sample)
+            if not proxy_l1:
+                emit(f"\n=== DK ROBUSTNESS | DEP: {y} | PROXY: {proxy} | MODEL: base ===")
+                emit("SKIP: proxy L1 não encontrada.")
+                continue
+
+            x_base = [proxy_l1] + [c for c in controls_clean if c in sample.columns]
+            x_base = [c for c in x_base if c in sample.columns]
+            if proxy_l1 not in x_base:
+                emit(f"\n=== DK ROBUSTNESS | DEP: {y} | PROXY: {proxy} | MODEL: base ===")
+                emit("SKIP: proxy L1 ausente entre regressoras.")
+                continue
+
+            proxy_l1_c = f"{proxy_l1}_C"
+            model_specs: List[Tuple[str, pd.DataFrame, List[str], str, Optional[str]]] = []
+            model_specs.append(("base", sample, x_base, proxy_l1, None))
+
+            if ("FISC_AUT" in sample.columns) and (proxy_l1 in sample.columns):
+                tmp = sample.copy()
+                tmp[proxy_l1_c] = pd.to_numeric(tmp[proxy_l1], errors="coerce") - pd.to_numeric(tmp[proxy_l1], errors="coerce").mean()
+                tmp["FISC_AUT_C"] = pd.to_numeric(tmp["FISC_AUT"], errors="coerce") - pd.to_numeric(tmp["FISC_AUT"], errors="coerce").mean()
+                inter_name = f"{proxy_l1_c}_X_FISC_AUT_C"
+                tmp[inter_name] = pd.to_numeric(tmp[proxy_l1_c], errors="coerce") * pd.to_numeric(tmp["FISC_AUT_C"], errors="coerce")
+                x_mod = [proxy_l1_c if c == proxy_l1 else c for c in x_base] + ["FISC_AUT_C", inter_name]
+                x_mod = [c for c in x_mod if c in tmp.columns]
+                model_specs.append(("fisc_aut_t", tmp, x_mod, proxy_l1_c, inter_name))
+
+            if ("FISC_CRED" in sample.columns) and (proxy_l1 in sample.columns):
+                tmp = sample.copy()
+                tmp[proxy_l1_c] = pd.to_numeric(tmp[proxy_l1], errors="coerce") - pd.to_numeric(tmp[proxy_l1], errors="coerce").mean()
+                tmp["FISC_CRED_C"] = pd.to_numeric(tmp["FISC_CRED"], errors="coerce") - pd.to_numeric(tmp["FISC_CRED"], errors="coerce").mean()
+                inter_name = f"{proxy_l1_c}_X_FISC_CRED_C"
+                tmp[inter_name] = pd.to_numeric(tmp[proxy_l1_c], errors="coerce") * pd.to_numeric(tmp["FISC_CRED_C"], errors="coerce")
+                x_mod = [proxy_l1_c if c == proxy_l1 else c for c in x_base] + ["FISC_CRED_C", inter_name]
+                x_mod = [c for c in x_mod if c in tmp.columns]
+                model_specs.append(("fisc_cred_t", tmp, x_mod, proxy_l1_c, inter_name))
+
+            if ("FISC_AUT_L1" in sample.columns) and (proxy_l1 in sample.columns):
+                tmp = sample.copy()
+                tmp[proxy_l1_c] = pd.to_numeric(tmp[proxy_l1], errors="coerce") - pd.to_numeric(tmp[proxy_l1], errors="coerce").mean()
+                tmp["FISC_AUT_L1_C"] = pd.to_numeric(tmp["FISC_AUT_L1"], errors="coerce") - pd.to_numeric(tmp["FISC_AUT_L1"], errors="coerce").mean()
+                inter_name = f"{proxy_l1_c}_X_FISC_AUT_L1_C"
+                tmp[inter_name] = pd.to_numeric(tmp[proxy_l1_c], errors="coerce") * pd.to_numeric(tmp["FISC_AUT_L1_C"], errors="coerce")
+                x_mod = [proxy_l1_c if c == proxy_l1 else c for c in x_base] + ["FISC_AUT_L1_C", inter_name]
+                x_mod = [c for c in x_mod if c in tmp.columns]
+                model_specs.append(("fisc_aut_t1", tmp, x_mod, proxy_l1_c, inter_name))
+
+            if ("FISC_CRED_L1" in sample.columns) and (proxy_l1 in sample.columns):
+                tmp = sample.copy()
+                tmp[proxy_l1_c] = pd.to_numeric(tmp[proxy_l1], errors="coerce") - pd.to_numeric(tmp[proxy_l1], errors="coerce").mean()
+                tmp["FISC_CRED_L1_C"] = pd.to_numeric(tmp["FISC_CRED_L1"], errors="coerce") - pd.to_numeric(tmp["FISC_CRED_L1"], errors="coerce").mean()
+                inter_name = f"{proxy_l1_c}_X_FISC_CRED_L1_C"
+                tmp[inter_name] = pd.to_numeric(tmp[proxy_l1_c], errors="coerce") * pd.to_numeric(tmp["FISC_CRED_L1_C"], errors="coerce")
+                x_mod = [proxy_l1_c if c == proxy_l1 else c for c in x_base] + ["FISC_CRED_L1_C", inter_name]
+                x_mod = [c for c in x_mod if c in tmp.columns]
+                model_specs.append(("fisc_cred_t1", tmp, x_mod, proxy_l1_c, inter_name))
+
+            for model_name, model_df, x_terms, main_term, inter_term in model_specs:
+                emit(f"\n=== DK ROBUSTNESS | DEP: {y} | PROXY: {proxy} | MODEL: {model_name} ===")
+
+                use, Y, X, err = _prepare_fe_sample(model_df, y=y, x=x_terms)
+                if err:
+                    emit(f"SKIP: {err}")
+                    continue
+
+                res_cluster, cluster_spec = _fit_fe_with_cov(Y, X, cov_kind="clustered", dk_lags=dk_lags)
+                if res_cluster is None:
+                    emit(f"SKIP: cluster falhou ({cluster_spec})")
+                    continue
+
+                if model_name == "base":
+                    try:
+                        resid = pd.Series(res_cluster.resids).dropna()
+                        base_residuals[(y, proxy)] = resid
+                    except Exception:
+                        pass
+                    try:
+                        idx = use.index
+                        n_obs = int(len(use))
+                        n_firms = int(idx.get_level_values(0).nunique())
+                        n_years = int(idx.get_level_values(1).nunique())
+                        base_counts[(y, proxy)] = (n_obs, n_firms, n_years)
+                    except Exception:
+                        pass
+
+                res_dk = None
+                dk_spec = "DK desativado por flag"
+                if run_driscoll_kraay:
+                    res_dk, dk_spec = _fit_fe_with_cov(Y, X, cov_kind="driscoll-kraay", dk_lags=dk_lags)
+
+                beta_c_main, p_c_main = _extract_coef_p(res_cluster, main_term)
+                beta_dk_main, p_dk_main = _extract_coef_p(res_dk, main_term)
+                emit(f"termo_principal={main_term}")
+                emit(f"cluster ({cluster_spec}): beta={_fmt_metric(beta_c_main)}, p={_fmt_metric(p_c_main)}")
+                if run_driscoll_kraay:
+                    emit(f"DK ({dk_spec}): beta={_fmt_metric(beta_dk_main)}, p={_fmt_metric(p_dk_main)}")
+                else:
+                    emit("DK: SKIP (RUN_DRISCOLL_KRAAY=False)")
+
+                if inter_term:
+                    beta_c_i, p_c_i = _extract_coef_p(res_cluster, inter_term)
+                    beta_dk_i, p_dk_i = _extract_coef_p(res_dk, inter_term)
+                    emit(f"termo_interacao={inter_term}")
+                    emit(f"cluster ({cluster_spec}): beta={_fmt_metric(beta_c_i)}, p={_fmt_metric(p_c_i)}")
+                    if run_driscoll_kraay:
+                        emit(f"DK ({dk_spec}): beta={_fmt_metric(beta_dk_i)}, p={_fmt_metric(p_dk_i)}")
+                    else:
+                        emit("DK: SKIP (RUN_DRISCOLL_KRAAY=False)")
+
+    test_proxies: List[str] = []
+    if "ABTD" not in test_proxies:
+        test_proxies.append("ABTD")
+    for p in proxies_clean:
+        if p not in test_proxies:
+            test_proxies.append(p)
+
+    for y in y_list:
+        for proxy in test_proxies:
+            key = (y, proxy)
+            resid = base_residuals.get(key)
+            n_obs, n_firms, n_years = base_counts.get(key, (0, 0, 0))
+
+            if run_wooldridge:
+                emit(f"\n=== WOOLDRIDGE AR(1) | DEP: {y} | PROXY: {proxy} ===")
+                if resid is None:
+                    emit("SKIP: resíduos do FE base indisponíveis.")
+                else:
+                    stat, pval, n_aux, firms_aux, years_aux, err = _wooldridge_ar1_from_residuals(resid)
+                    if err:
+                        emit(f"SKIP: {err} | N={n_aux}, firms={firms_aux}, years={years_aux}")
+                    else:
+                        emit(f"stat={_fmt_metric(stat)}, p={_fmt_metric(pval)}, N={n_aux}, firms={firms_aux}, years={years_aux}")
+
+            if run_pesaran_cd:
+                emit(f"\n=== PESARAN CD | DEP: {y} | PROXY: {proxy} ===")
+                if resid is None:
+                    emit("SKIP: resíduos do FE base indisponíveis.")
+                else:
+                    cd_stat, pval, firms_cd, years_cd, err = _pesaran_cd_from_residuals(resid)
+                    if err:
+                        emit(f"SKIP: {err}")
+                    else:
+                        emit(f"CD={_fmt_metric(cd_stat)}, p={_fmt_metric(pval)}, N firms={firms_cd}, T={years_cd}")
+
+            if run_jarque_bera:
+                emit(f"\n=== JARQUE-BERA | DEP: {y} | PROXY: {proxy} ===")
+                if resid is None:
+                    emit("SKIP: resíduos do FE base indisponíveis.")
+                else:
+                    rv = pd.to_numeric(resid, errors="coerce").dropna().to_numpy(dtype=float)
+                    if rv.size < 3:
+                        emit(f"SKIP: N insuficiente para JB (N={rv.size}).")
+                    else:
+                        try:
+                            jb_res = jarque_bera(rv)
+                            jb_stat = float(jb_res.statistic)
+                            jb_p = float(jb_res.pvalue)
+                            skw = float(skew(rv, bias=False))
+                            krt = float(kurtosis(rv, fisher=False, bias=False))
+                            emit(
+                                f"JB={_fmt_metric(jb_stat)}, p={_fmt_metric(jb_p)}, "
+                                f"skew={_fmt_metric(skw)}, kurt={_fmt_metric(krt)}, N={int(rv.size)}"
+                            )
+                        except Exception as exc:
+                            emit(f"SKIP: falha no Jarque-Bera ({exc})")
+
+            if plot_residuals:
+                emit(f"\n=== RESIDUAL PLOTS | DEP: {y} | PROXY: {proxy} ===")
+                if resid is None:
+                    emit("SKIP: resíduos do FE base indisponíveis.")
+                else:
+                    perr = _save_residual_plots(resid, outdir=outdir, y=y, proxy=proxy)
+                    if perr:
+                        emit(f"SKIP: {perr}")
+                    else:
+                        emit("OK: gráficos salvos em outputs/.")
+
+            if key in base_counts:
+                emit(f"N base FE: obs={n_obs}, firms={n_firms}, years={n_years}")
+
+    out_path.write_text("\n".join(lines), encoding="utf-8")
+    return out_path
+
 def fit_pooled_ols(
     df: pd.DataFrame,
     y: str,
@@ -1344,6 +2147,40 @@ def main() -> None:
     reg_fe_lines: List[str] = []
     reg_lines = reg_all_lines  # alias para manter o fluxo existente do relatório completo
 
+    # Contexto mínimo para diagnósticos (também usado quando linearmodels estiver indisponível)
+    panel_l1_diag = panel.copy()
+    y_list_diag = ["INOV_INC", "INOV_RAD", "INOV_AMBIENTAL"]
+    if USE_INNOVATION_COMPOSITE and innovation_target in panel_l1_diag.columns and panel_l1_diag[innovation_target].notna().any():
+        y_list_diag.append(innovation_target)
+    y_list_diag = [y for y in y_list_diag if y in panel_l1_diag.columns]
+
+    valid_moderators_diag = {"SIZE", "ROA", "LEV", "GR", "PPE", "INTA"}
+    model_moderators_cfg_diag = globals().get("MODEL_MODERATORS", ["SIZE", "ROA", "LEV", "GR", "PPE", "INTA"])
+    if model_moderators_cfg_diag is None:
+        moderators_to_run_diag = []
+    elif isinstance(model_moderators_cfg_diag, str):
+        moderators_to_run_diag = [model_moderators_cfg_diag]
+    else:
+        moderators_to_run_diag = list(model_moderators_cfg_diag)
+    moderators_to_run_diag = [str(m).upper().strip() for m in moderators_to_run_diag]
+    moderators_to_run_diag = [m for m in moderators_to_run_diag if m in valid_moderators_diag]
+    moderators_l1_diag = [f"{m}_L1" for m in moderators_to_run_diag if f"{m}_L1" in panel_l1_diag.columns]
+
+    run_all_proxies_diag = bool(globals().get("RUN_ALL_PROXIES", False))
+    tax_agg_proxy_diag = str(globals().get("TAX_AGG_PROXY", "ABTD")).upper().strip()
+    tax_agg_proxies_cfg_diag = globals().get("TAX_AGG_PROXIES", None)
+    if tax_agg_proxies_cfg_diag is not None:
+        if isinstance(tax_agg_proxies_cfg_diag, str):
+            proxies_diag = [tax_agg_proxies_cfg_diag]
+        else:
+            proxies_diag = list(tax_agg_proxies_cfg_diag)
+    elif run_all_proxies_diag:
+        proxies_diag = ["ABTD", "ETRC", "GAAPETR"]
+    else:
+        proxies_diag = [tax_agg_proxy_diag]
+    proxies_diag = [str(p).upper().strip() for p in proxies_diag]
+    proxies_diag = [p for p in proxies_diag if p in {"ABTD", "ETRC", "GAAPETR"}]
+
     if not _HAS_LINEARMODELS:
         msg = "linearmodels indisponível: instale para rodar as regressões.\n"
         reg_all_lines.append(msg)
@@ -1351,6 +2188,37 @@ def main() -> None:
         (OUTDIR / "regressions_all.txt").write_text("\n".join(reg_all_lines), encoding="utf-8")
         (OUTDIR / "regressions_final_fe.txt").write_text("\n".join(reg_fe_lines), encoding="utf-8")
         (OUTDIR / "regressions.txt").write_text("\n".join(reg_all_lines), encoding="utf-8")
+        if RUN_DIAGNOSTICS:
+            write_diagnostics(
+                panel_l1=panel_l1_diag,
+                y_list=y_list_diag,
+                proxies_to_run=proxies_diag,
+                controls_l1=moderators_l1_diag,
+                outdir=OUTDIR,
+                diagnostics_file=DIAGNOSTICS_FILE,
+                spearman_method=SPEARMAN_METHOD,
+                vif_include_const=VIF_INCLUDE_CONST,
+                hausman_alpha=HAUSMAN_ALPHA,
+                drop_lair_nonpos_for_abtd=drop_lair_nonpos_for_abtd,
+                drop_lair_nonpos_for_etr=drop_lair_nonpos_for_etr,
+            )
+        if RUN_ADVANCED_ROBUSTNESS:
+            write_advanced_robustness(
+                panel_l1=panel_l1_diag,
+                y_list=y_list_diag,
+                proxies_to_run=proxies_diag,
+                controls_l1=moderators_l1_diag,
+                outdir=OUTDIR,
+                robustness_file=ROBUSTNESS_FILE,
+                run_driscoll_kraay=RUN_DRISCOLL_KRAAY,
+                run_wooldridge=RUN_WOOLDRIDGE,
+                run_pesaran_cd=RUN_PESARAN_CD,
+                run_jarque_bera=RUN_JARQUE_BERA,
+                dk_lags=DK_LAGS,
+                plot_residuals=PLOT_RESIDUALS,
+                drop_lair_nonpos_for_abtd=drop_lair_nonpos_for_abtd,
+                drop_lair_nonpos_for_etr=drop_lair_nonpos_for_etr,
+            )
     else:
         # flags de execução
         run_all_proxies = bool(globals().get("RUN_ALL_PROXIES", False))
@@ -1843,6 +2711,38 @@ def main() -> None:
         (OUTDIR / "regressions_final_fe.txt").write_text("\n".join(reg_fe_lines), encoding="utf-8")
         # compatibilidade retroativa
         (OUTDIR / "regressions.txt").write_text("\n".join(reg_all_lines), encoding="utf-8")
+
+        if RUN_DIAGNOSTICS:
+            write_diagnostics(
+                panel_l1=panel_l1,
+                y_list=y_list,
+                proxies_to_run=proxies_to_run,
+                controls_l1=moderators_l1,
+                outdir=OUTDIR,
+                diagnostics_file=DIAGNOSTICS_FILE,
+                spearman_method=SPEARMAN_METHOD,
+                vif_include_const=VIF_INCLUDE_CONST,
+                hausman_alpha=HAUSMAN_ALPHA,
+                drop_lair_nonpos_for_abtd=drop_lair_nonpos_for_abtd,
+                drop_lair_nonpos_for_etr=drop_lair_nonpos_for_etr,
+            )
+        if RUN_ADVANCED_ROBUSTNESS:
+            write_advanced_robustness(
+                panel_l1=panel_l1,
+                y_list=y_list,
+                proxies_to_run=proxies_to_run,
+                controls_l1=moderators_l1,
+                outdir=OUTDIR,
+                robustness_file=ROBUSTNESS_FILE,
+                run_driscoll_kraay=RUN_DRISCOLL_KRAAY,
+                run_wooldridge=RUN_WOOLDRIDGE,
+                run_pesaran_cd=RUN_PESARAN_CD,
+                run_jarque_bera=RUN_JARQUE_BERA,
+                dk_lags=DK_LAGS,
+                plot_residuals=PLOT_RESIDUALS,
+                drop_lair_nonpos_for_abtd=drop_lair_nonpos_for_abtd,
+                drop_lair_nonpos_for_etr=drop_lair_nonpos_for_etr,
+            )
 
     # 11) Fluxo amostral
     (OUTDIR / "sample_flow.txt").write_text("\n".join(flow.lines), encoding="utf-8")

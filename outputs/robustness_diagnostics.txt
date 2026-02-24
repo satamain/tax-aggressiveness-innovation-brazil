@@ -1,0 +1,195 @@
+ROBUSTEZ AVANCADA (DK, WOOLDRIDGE, PESARAN CD, JARQUE-BERA)
+
+Amostra painel final (panel_l1): N=2770, firms=292, periodo=2015-2024
+Dependentes: INOV_INC, INOV_RAD, INOV_AMBIENTAL, INOV_COMP
+Proxies: ABTD
+Controles L1: SIZE_L1, ROA_L1, LEV_L1, GR_L1, PPE_L1, INTA_L1
+Flags: DK=on, Wooldridge=on, PesaranCD=on, JB=on, DK_LAGS=1, PLOT_RESIDUALS=off
+
+=== DK ROBUSTNESS | DEP: INOV_INC | PROXY: ABTD | MODEL: base ===
+termo_principal=ABTD_L1
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.004364, p=0.693003
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.004364, p=0.641748
+
+=== DK ROBUSTNESS | DEP: INOV_INC | PROXY: ABTD | MODEL: fisc_aut_t ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.005057, p=0.641446
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.005057, p=0.596792
+termo_interacao=ABTD_L1_C_X_FISC_AUT_C
+cluster (cov_type=clustered, cluster_entity=True): beta=0.010832, p=0.265805
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=0.010832, p=0.205551
+
+=== DK ROBUSTNESS | DEP: INOV_INC | PROXY: ABTD | MODEL: fisc_cred_t ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.005281, p=0.626848
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.005281, p=0.586786
+termo_interacao=ABTD_L1_C_X_FISC_CRED_C
+cluster (cov_type=clustered, cluster_entity=True): beta=0.018225, p=0.027136
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=0.018225, p=0.003362
+
+=== DK ROBUSTNESS | DEP: INOV_INC | PROXY: ABTD | MODEL: fisc_aut_t1 ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.004862, p=0.657473
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.004862, p=0.619944
+termo_interacao=ABTD_L1_C_X_FISC_AUT_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=0.008251, p=0.404119
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=0.008251, p=0.335295
+
+=== DK ROBUSTNESS | DEP: INOV_INC | PROXY: ABTD | MODEL: fisc_cred_t1 ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.004121, p=0.706600
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.004121, p=0.656371
+termo_interacao=ABTD_L1_C_X_FISC_CRED_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=0.010524, p=0.259048
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=0.010524, p=0.082915
+
+=== DK ROBUSTNESS | DEP: INOV_RAD | PROXY: ABTD | MODEL: base ===
+termo_principal=ABTD_L1
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.000633, p=0.936626
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.000633, p=0.825474
+
+=== DK ROBUSTNESS | DEP: INOV_RAD | PROXY: ABTD | MODEL: fisc_aut_t ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.001837, p=0.842410
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.001837, p=0.594346
+termo_interacao=ABTD_L1_C_X_FISC_AUT_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.000253, p=0.958035
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.000253, p=0.948928
+
+=== DK ROBUSTNESS | DEP: INOV_RAD | PROXY: ABTD | MODEL: fisc_cred_t ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.000599, p=0.940350
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.000599, p=0.836222
+termo_interacao=ABTD_L1_C_X_FISC_CRED_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.002328, p=0.391495
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.002328, p=0.526361
+
+=== DK ROBUSTNESS | DEP: INOV_RAD | PROXY: ABTD | MODEL: fisc_aut_t1 ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.002278, p=0.798432
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.002278, p=0.476401
+termo_interacao=ABTD_L1_C_X_FISC_AUT_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.000337, p=0.942127
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.000337, p=0.928409
+
+=== DK ROBUSTNESS | DEP: INOV_RAD | PROXY: ABTD | MODEL: fisc_cred_t1 ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.001154, p=0.889740
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.001154, p=0.721361
+termo_interacao=ABTD_L1_C_X_FISC_CRED_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.003171, p=0.458174
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.003171, p=0.425029
+
+=== DK ROBUSTNESS | DEP: INOV_AMBIENTAL | PROXY: ABTD | MODEL: base ===
+termo_principal=ABTD_L1
+cluster (cov_type=clustered, cluster_entity=True): beta=-19.365689, p=0.165885
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-19.365689, p=0.078271
+
+=== DK ROBUSTNESS | DEP: INOV_AMBIENTAL | PROXY: ABTD | MODEL: fisc_aut_t ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-20.309552, p=0.131093
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-20.309552, p=0.069037
+termo_interacao=ABTD_L1_C_X_FISC_AUT_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-7.753813, p=0.520580
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-7.753813, p=0.428411
+
+=== DK ROBUSTNESS | DEP: INOV_AMBIENTAL | PROXY: ABTD | MODEL: fisc_cred_t ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-19.809176, p=0.152885
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-19.809176, p=0.072962
+termo_interacao=ABTD_L1_C_X_FISC_CRED_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-3.310476, p=0.701725
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-3.310476, p=0.704346
+
+=== DK ROBUSTNESS | DEP: INOV_AMBIENTAL | PROXY: ABTD | MODEL: fisc_aut_t1 ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-20.266371, p=0.137567
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-20.266371, p=0.055362
+termo_interacao=ABTD_L1_C_X_FISC_AUT_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-10.868380, p=0.362001
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-10.868380, p=0.211221
+
+=== DK ROBUSTNESS | DEP: INOV_AMBIENTAL | PROXY: ABTD | MODEL: fisc_cred_t1 ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-20.043758, p=0.144068
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-20.043758, p=0.070196
+termo_interacao=ABTD_L1_C_X_FISC_CRED_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-5.189364, p=0.557831
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-5.189364, p=0.583979
+
+=== DK ROBUSTNESS | DEP: INOV_COMP | PROXY: ABTD | MODEL: base ===
+termo_principal=ABTD_L1
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.094583, p=0.083284
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.094583, p=0.146297
+
+=== DK ROBUSTNESS | DEP: INOV_COMP | PROXY: ABTD | MODEL: fisc_aut_t ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.127675, p=0.052932
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.127675, p=0.050223
+termo_interacao=ABTD_L1_C_X_FISC_AUT_C
+cluster (cov_type=clustered, cluster_entity=True): beta=0.035744, p=0.455072
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=0.035744, p=0.381636
+
+=== DK ROBUSTNESS | DEP: INOV_COMP | PROXY: ABTD | MODEL: fisc_cred_t ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.098954, p=0.022351
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.098954, p=0.140100
+termo_interacao=ABTD_L1_C_X_FISC_CRED_C
+cluster (cov_type=clustered, cluster_entity=True): beta=0.016302, p=0.701692
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=0.016302, p=0.710099
+
+=== DK ROBUSTNESS | DEP: INOV_COMP | PROXY: ABTD | MODEL: fisc_aut_t1 ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.128183, p=0.043341
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.128183, p=0.048450
+termo_interacao=ABTD_L1_C_X_FISC_AUT_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=0.039903, p=0.273530
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=0.039903, p=0.275304
+
+=== DK ROBUSTNESS | DEP: INOV_COMP | PROXY: ABTD | MODEL: fisc_cred_t1 ===
+termo_principal=ABTD_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=-0.116093, p=0.039624
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=-0.116093, p=0.117185
+termo_interacao=ABTD_L1_C_X_FISC_CRED_L1_C
+cluster (cov_type=clustered, cluster_entity=True): beta=0.032562, p=0.463387
+DK (cov_type=driscoll-kraay, debiased=True, bandwidth=1): beta=0.032562, p=0.461805
+
+=== WOOLDRIDGE AR(1) | DEP: INOV_INC | PROXY: ABTD ===
+stat=54.346264, p=0.000000, N=1676, firms=253, years=8
+
+=== PESARAN CD | DEP: INOV_INC | PROXY: ABTD ===
+CD=9.836771, p=0.000000, N firms=258, T=9
+
+=== JARQUE-BERA | DEP: INOV_INC | PROXY: ABTD ===
+JB=14105.675701, p=0.000000, skew=1.446101, kurt=15.947503, N=1934
+N base FE: obs=1934, firms=258, years=9
+
+=== WOOLDRIDGE AR(1) | DEP: INOV_RAD | PROXY: ABTD ===
+stat=54.777842, p=0.000000, N=237, firms=39, years=8
+
+=== PESARAN CD | DEP: INOV_RAD | PROXY: ABTD ===
+CD=16.721346, p=0.000000, N firms=39, T=9
+
+=== JARQUE-BERA | DEP: INOV_RAD | PROXY: ABTD ===
+JB=1795.588264, p=0.000000, skew=-0.995740, kurt=15.586067, N=276
+N base FE: obs=276, firms=39, years=9
+
+=== WOOLDRIDGE AR(1) | DEP: INOV_AMBIENTAL | PROXY: ABTD ===
+stat=228.800901, p=0.000000, N=626, firms=108, years=8
+
+=== PESARAN CD | DEP: INOV_AMBIENTAL | PROXY: ABTD ===
+CD=30.332581, p=0.000000, N firms=109, T=9
+
+=== JARQUE-BERA | DEP: INOV_AMBIENTAL | PROXY: ABTD ===
+JB=505.436739, p=0.000000, skew=0.227703, kurt=7.072823, N=735
+N base FE: obs=735, firms=109, years=9
+
+=== WOOLDRIDGE AR(1) | DEP: INOV_COMP | PROXY: ABTD ===
+stat=26.126005, p=0.000000, N=139, firms=23, years=8
+
+=== PESARAN CD | DEP: INOV_COMP | PROXY: ABTD ===
+CD=-1.666166, p=0.095680, N firms=23, T=9
+
+=== JARQUE-BERA | DEP: INOV_COMP | PROXY: ABTD ===
+JB=11.728428, p=0.002839, skew=0.172183, kurt=4.351404, N=162
+N base FE: obs=162, firms=23, years=9
